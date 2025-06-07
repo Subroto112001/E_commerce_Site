@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { MdLocalMall, MdOutlineCancel, MdOutlineFavoriteBorder, MdOutlineLocalMall, MdOutlineShoppingCart } from "react-icons/md";
@@ -6,6 +6,12 @@ import { FaRegStar, FaUserAlt, } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 export const Navbar = () => {
+
+
+  const [userAccount, setUserAccount] = useState(false)
+
+  const userRef = useRef(null);
+
   const navItem = [
     {
       id: 1,
@@ -28,6 +34,22 @@ export const Navbar = () => {
       path: "/signup",
     },
   ];
+
+
+
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      if (userRef.current.contains(e.target)) {
+        setUserAccount(!userAccount);
+      } else {
+        setUserAccount(false);
+        console.log("Nope");
+      }
+    });
+  }, [userAccount]);
+  // const handleuserAccount = () => {
+  //   setUserAccount(!userAccount);
+  // }
   return (
     <div className="container bg-white border-b-gray-500 border-b-[1px] ">
       <div className="flex justify-between items-center pt-[47px] pb-[23px]  ">
@@ -81,36 +103,43 @@ export const Navbar = () => {
             <span className="text-[32px] cursor-pointer">
               <MdOutlineShoppingCart />
             </span>
-            <span className="text-[30px] cursor-pointer">
+
+            <span
+              className="text-[30px] cursor-pointer"
+              // onClick={handleuserAccount}
+              ref={userRef}
+            >
               <FaUserAlt />
             </span>
           </div>
-          <div className="absolute right-[132px] top-[150px] font-poppins font-normal text-[14px] py-[18px] pl-[20px] pr-[12px] flex flex-col gap-y-[13px] bg-red-400 text-white">
-            <div className="flex gap-[10px] items-center ">
-              <span className="text-[22px]">
-                <FiUser />
-              </span>
-              <h3>Manage My Account</h3>
+          {userAccount && (
+            <div className="absolute right-[132px] top-[150px] font-poppins font-normal text-[14px] py-[18px] pl-[20px] pr-[12px] flex flex-col gap-y-[13px] bg-[rgba(0,0,0,0.26)] text-black">
+              <div className="flex gap-[10px] items-center ">
+                <span className="text-[22px]">
+                  <FiUser />
+                </span>
+                <h3>Manage My Account</h3>
+              </div>
+              <div className="flex gap-[10px] items-center ">
+                <span className="text-[22px]">
+                  <MdOutlineLocalMall />
+                </span>
+                <h3>My Order</h3>
+              </div>
+              <div className="flex gap-[10px] items-center ">
+                <span className="text-[22px]">
+                  <MdOutlineCancel />
+                </span>
+                <h3>My Collection</h3>
+              </div>
+              <div className="flex gap-[10px] items-center ">
+                <span className="text-[22px]">
+                  <BiLogOut />
+                </span>
+                <h3>Log Out</h3>
+              </div>
             </div>
-            <div className="flex gap-[10px] items-center ">
-              <span className="text-[22px]">
-                <MdOutlineLocalMall />
-              </span>
-              <h3>My Order</h3>
-            </div>
-            <div className="flex gap-[10px] items-center ">
-              <span className="text-[22px]">
-                <MdOutlineCancel />
-              </span>
-              <h3>My Collection</h3>
-            </div>
-            <div className="flex gap-[10px] items-center ">
-              <span className="text-[22px]">
-                <BiLogOut />
-              </span>
-              <h3>Log Out</h3>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
