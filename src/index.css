@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@layer base {
+  @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+  * {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+  }
+  img {
+    vertical-align: middle;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+  }
+  ul,
+  ol,
+  li {
+    list-style: none;
+  }
+}
+:root {
+  --white_color: #ffffff;
+  --primary1_color: #363738;
+  --secondary_color: #f5f5f5;
+  --Secondary1_color: #fefaf1;
+  --text_color: #fafafa;
+  --text1_color: #7d8184;
+  --black_color: #000000;
+  --Secondary2_color: #db4444;
+  --Button1_color: #00ff66;
+  --HoverButton_color: #e07575;
+  --HoverButton2_color: #a0bce0;
+  --inter: "Inter", sans-serif;
+  --poppins: "Poppins", sans-serif;
+}
+@theme {
+  --color-white: var(--white_color);
+  --color-primary1_color: var(--primary1_color);
+  --color-secondary_color: var(--secondary_color);
+  --color-Secondary1_color: var(--Secondary1_color);
+  --color-text_color: var(--text_color);
+  --color-text1_color: var(--text1_color);
+  --color-black_color: var(--black_color);
+  --color-Secondary2_color: var(--Secondary2_color);
+  --color-Button1_color: var(--Button1_color);
+  --color-HoverButton_color: var(--HoverButton_color);
+  --color-HoverButton2_color: var(--HoverButton2_color);
+  --font-inter: var(--inter);
+  --font-poppins: var(--poppins);
+}
+
+.container {
+  padding-left: 135px;
+  padding-right: 135px;
+}
+
+@layer components {
+  .menuUnderLineBar {
+    position: relative;
+  }
+  .menuUnderLineBar ::after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #7d8184;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transition: ease-in-out 0.2s;
+    -webkit-transition: ease-in-out 0.2s;
+    -moz-transition: ease-in-out 0.2s;
+    -ms-transition: ease-in-out 0.2s;
+    -o-transition: ease-in-out 0.2s;
+}
+  .menuUnderLineBar:hover ::after {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+  }
+}
