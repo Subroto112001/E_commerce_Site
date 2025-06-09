@@ -1,8 +1,11 @@
 import React from 'react'
-
+import Banner from '../Component/HomePageComponent/Banner/Index';
 
 const HomePage = () => {
-    return <div className="bg-red-400 container">fdgdsg</div>;
+    return <div >
+<Banner/>
+
+    </div>;
 }
 
 export default HomePage
