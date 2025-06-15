@@ -1,11 +1,14 @@
-import React from 'react'
-import Banner from '../Component/HomePageComponent/Banner/Index';
+import React from "react";
+import Banner from "../Component/HomePageComponent/Banner/Index";
+import FlashPart from "../Component/HomePageComponent/FlashSection/Index";
 
 const HomePage = () => {
-    return <div >
-<Banner/>
+  return (
+    <div>
+      <Banner />
+      <FlashPart />
+    </div>
+  );
+};
 
-    </div>;
-}
-
-export default HomePage
+export default HomePage;

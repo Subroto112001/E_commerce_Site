@@ -91,3 +91,9 @@
 .slick-dots li.slick-active div {
   @apply bg-red-400 border-white;
 }
+
+.slick-prev, .slick-next {
+  z-index: 10;
+  display: block !important; /* force করে visible করবে */
+  background-color: #000000;
+}
