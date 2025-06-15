@@ -88,3 +88,6 @@
     -o-transform: scale(1);
   }
 }
+.slick-dots li.slick-active div {
+  @apply bg-red-400 border-white;
+}

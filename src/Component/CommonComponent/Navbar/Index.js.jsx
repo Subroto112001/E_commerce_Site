@@ -108,7 +108,7 @@ export const Navbar = () => {
             {/* user jsx */}
           </div>
           {userAccount && (
-            <div className="absolute right-[132px] text-white top-[150px] font-poppins font-normal text-[14px] py-[18px] pl-[20px] pr-[12px] flex flex-col gap-y-[13px] bg-[rgba(0,0,0,0.46)] ">
+            <div className="absolute z-10 right-[132px] text-white top-[150px] font-poppins font-normal text-[14px] py-[18px] pl-[20px] pr-[12px] flex flex-col gap-y-[13px] bg-red-300 ">
               <div className="flex gap-[10px] p-1 items-center hover:translate-1  hover:bg-white hover:text-black transition-all ">
                 <span className="text-[22px]">
                   <FiUser />
