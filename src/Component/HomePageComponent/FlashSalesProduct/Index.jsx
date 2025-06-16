@@ -10,6 +10,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
+import { FaRegHeart } from "react-icons/fa";
+import { FiEye } from "react-icons/fi";
 const FlashSalesProduct = () => {
   const NextArrow = (props) => {
     const { onClick } = props;
@@ -57,6 +59,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$160",
       rating: "88",
       picture: Image1,
+      discount: "-40%",
     },
     {
       id: 2,
@@ -65,6 +68,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$1160",
       rating: "75",
       picture: Image2,
+      discount: "-35%",
     },
     {
       id: 3,
@@ -73,6 +77,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$400",
       rating: "99",
       picture: Image4,
+      discount: "-30%",
     },
     {
       id: 4,
@@ -81,6 +86,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$400",
       rating: "99",
       picture: Image3,
+      discount: "-25%",
     },
     {
       id: 5,
@@ -89,6 +95,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$400",
       rating: "99",
       picture: Image2,
+      discount: "-40%",
     },
     {
       id: 6,
@@ -97,6 +104,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$400",
       rating: "99",
       picture: Image2,
+      discount: "-40%",
     },
     {
       id: 7,
@@ -105,6 +113,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$400",
       rating: "99",
       picture: Image2,
+      discount: "-40%",
     },
     {
       id: 8,
@@ -113,6 +122,7 @@ const FlashSalesProduct = () => {
       prevpRICE: "$400",
       rating: "99",
       picture: Image2,
+      discount: "-40%",
     },
     {
       id: 9,
@@ -121,19 +131,48 @@ const FlashSalesProduct = () => {
       prevpRICE: "$400",
       rating: "99",
       picture: Image2,
+      discount: "-40%",
     },
   ];
+
   return (
     <div className="relative">
       <div className="slider-container ">
-        <Slider {...settings} className="">
+        <Slider {...settings} >
           {FlashSalesItem.map((item) => (
-            <div key={item.id}>
-              <div className="w-[270px] h-[270px] bg-secondary_color flex justify-center items-center">
+            <div key={item.id} >
+              <div className="w-[270px] h-[270px] bg-secondary_color flex justify-center items-center relative group ">
                 <picture>
                   <img src={item.picture} alt={item.name} />
                 </picture>
+                {/* absolute item will bw here */}
+                <div className="absolute top-[12px] left-[12px] bg-Secondary2_color inline-block px-[12px] py-[4px] rounded ">
+                  <span className="font-poppins font-normal text-[12px] text-white">
+                    {item.discount}
+                  </span>
+                </div>
+                {/* absolute item will bw here */}
+
+                {/* absolute item2 will bw here */}
+                <div className="flex flex-col absolute top-[12px] right-[12px] text-[16px] gap-[8px]">
+                  <span className="bg-white rounded-full p-[10px] cursor-pointer">
+                    <FaRegHeart />
+                  </span>
+                  <span className="bg-white rounded-full p-[10px] cursor-pointer">
+                    <FiEye />
+                  </span>
+                </div>
+                {/* absolute item2 will bw here */}
+                {/* absolute item3 will bw here */}
+
+                <div className="absolute bottom-0 cursor-pointer w-full bg-black rounded py-2 transition-all  opacity-0 group-hover:opacity-100 duration-300">
+                  <h3 className="font-poppins font-medium  text-[16px] text-white text-center">
+                    Add To Cart
+                  </h3>
+                </div>
+                {/* absolute item3 will bw here */}
               </div>
+
               <div className="mt-[16px]">
                 <h3 className="font-poppins text-[16px] font-medium text-black">
                   {item.name}
@@ -146,13 +185,14 @@ const FlashSalesProduct = () => {
                     {item.prevpRICE}
                   </span>
                 </div>
-                <div>
-                  
-                </div>
+                <div></div>
               </div>
             </div>
           ))}
         </Slider>
+      </div>
+      <div className="flex justify-center items-center mt-[60px]">
+        <button className="bg-Secondary2_color px-[48px] cursor-pointer rounded py-[16px] text-[16px] text-white font-medium font-poppins">View All Products</button>
       </div>
     </div>
   );
