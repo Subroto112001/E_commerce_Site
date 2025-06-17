@@ -1,7 +1,7 @@
 import React from "react";
 import CountdownTimer from "../TimerCOmponent/Index";
 
-const Heading = ({ HeadingTitle, SeconderyHeading }) => {
+const Heading = ({ HeadingTitle, SeconderyHeading, showtimer }) => {
  
 
   return (
@@ -16,7 +16,7 @@ const Heading = ({ HeadingTitle, SeconderyHeading }) => {
         <h3 className="text-[36px] font-semibold font-inter text-black">
           {SeconderyHeading}
         </h3>{" "}
-        <CountdownTimer />
+        {showtimer && <CountdownTimer />}
       </div>
     </div>
   );
