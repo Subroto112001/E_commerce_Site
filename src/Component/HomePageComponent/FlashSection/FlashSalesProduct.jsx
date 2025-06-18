@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
 const FlashSalesProduct = () => {
   const NextArrow = (props) => {
@@ -138,9 +138,9 @@ const FlashSalesProduct = () => {
   return (
     <div className="relative">
       <div className="slider-container ">
-        <Slider {...settings} >
+        <Slider {...settings}>
           {FlashSalesItem.map((item) => (
-            <div key={item.id} >
+            <div key={item.id}>
               <div className="w-[270px] h-[270px] bg-secondary_color flex justify-center items-center relative group ">
                 <picture>
                   <img src={item.picture} alt={item.name} />
@@ -155,10 +155,10 @@ const FlashSalesProduct = () => {
 
                 {/* absolute item2 will bw here */}
                 <div className="flex flex-col absolute top-[12px] right-[12px] text-[16px] gap-[8px]">
-                  <span className="bg-white rounded-full p-[10px] cursor-pointer">
+                  <span className="bg-white rounded-full p-[10px] cursor-pointer hover:bg-Secondary2_color hover:text-white duration-300">
                     <FaRegHeart />
                   </span>
-                  <span className="bg-white rounded-full p-[10px] cursor-pointer">
+                  <span className="bg-white rounded-full p-[10px] cursor-pointer hover:bg-Secondary2_color hover:text-white duration-300">
                     <FiEye />
                   </span>
                 </div>
@@ -185,14 +185,27 @@ const FlashSalesProduct = () => {
                     {item.prevpRICE}
                   </span>
                 </div>
-                <div></div>
+                <div className="flex gap-[8px] items-center">
+                  <div className="flex text-yellow-400">
+                    {[...new Array(5)].map((_, index) => (
+                      <span>
+                        <FaStar />
+                      </span>
+                    ))}
+                  </div>
+                  <div>
+                    <span className="text-[14px] text-text2-color">{`(${item.rating})`}</span>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
         </Slider>
       </div>
       <div className="flex justify-center items-center mt-[60px]">
-        <button className="bg-Secondary2_color px-[48px] cursor-pointer rounded py-[16px] text-[16px] text-white font-medium font-poppins">View All Products</button>
+        <button className="bg-Secondary2_color px-[48px] cursor-pointer rounded py-[16px] text-[16px] text-white font-medium font-poppins">
+          View All Products
+        </button>
       </div>
     </div>
   );

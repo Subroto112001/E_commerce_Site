@@ -35,6 +35,7 @@
   --HoverButton2_color: #a0bce0;
   --inter: "Inter", sans-serif;
   --poppins: "Poppins", sans-serif;
+  --text2-color : "#808080"
 }
 @theme {
   --color-white: var(--white_color);
@@ -50,6 +51,7 @@
   --color-HoverButton2_color: var(--HoverButton2_color);
   --font-inter: var(--inter);
   --font-poppins: var(--poppins);
+  --color-text2-color: var(--text2-color);
 }
 
 .container {
