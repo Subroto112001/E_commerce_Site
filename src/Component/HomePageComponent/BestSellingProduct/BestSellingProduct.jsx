@@ -6,6 +6,7 @@ import table from "../../../assets/Bestselling/table.png";
 import Bag from "../../../assets/Bestselling/Bag.png";
 import { FaRegHeart } from 'react-icons/fa';
 import { FiEye } from 'react-icons/fi';
+import ItemComponent from '../../CommonComponent/ItemComponent';
 const BestSellingProduct = () => {
      const BestSellingItem = [
        {
@@ -55,34 +56,16 @@ const BestSellingProduct = () => {
         <div className="flex justify-between mt-[60px]">
           {BestSellingItem.map((item) => (
             <div key={item.id}>
-              <div className="w-[270px] h-[270px] bg-secondary_color flex justify-center items-center relative group ">
-                <picture>
-                  <img src={item.picture} alt={item.name} />
-                </picture>
-
-                {/* absolute item2 will bw here */}
-                <div className="flex flex-col absolute top-[12px] right-[12px] text-[16px] gap-[8px]">
-                  <span className="bg-white rounded-full p-[10px] cursor-pointer hover:bg-Secondary2_color hover:text-white duration-300">
-                    <FaRegHeart />
-                  </span>
-                  <span className="bg-white rounded-full p-[10px] cursor-pointer hover:bg-Secondary2_color hover:text-white duration-300">
-                    <FiEye />
-                  </span>
-                </div>
-                {/* absolute item2 will bw here */}
-              </div>
-
-              <div className="mt-[16px]">
-                <h3 className="font-poppins text-[16px] font-medium text-black">
-                  {item.name}
-                </h3>
-                <div className="flex gap-[12px]">
-                  <span className="font-poppins text-[16px] font-medium text-Secondary2_color">
-                    {item.price}
-                  </span>
-                </div>
-                <div></div>
-              </div>
+              <ItemComponent
+                itemName={item.name}
+                itemPicture={item.picture}
+                itemDiscount={item.discount}
+                itemPrice={item.price}
+                itemPrevpRICE={item.prevpRICE}
+                itemRating={item.rating}
+                IsDiscount={false}
+                isAddcrat={false}
+              />
             </div>
           ))}
         </div>
