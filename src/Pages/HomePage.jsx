@@ -4,6 +4,7 @@ import FlashPart from "../Component/HomePageComponent/FlashSection/Index";
 import BrowseCategroy from "../Component/HomePageComponent/BrowseCategory/Index";
 import BestSellingProduct from "../Component/HomePageComponent/BestSellingProduct/BestSellingProduct";
 import Categories from "../Component/HomePageComponent/Ctegories/Categories";
+import Newarrival from "../Component/HomePageComponent/NewArrival/Newarrival";
 
 const HomePage = () => {
   return (
@@ -14,7 +15,8 @@ const HomePage = () => {
       <BrowseCategroy />
   
       <BestSellingProduct />
-      <Categories/>
+      <Categories />
+      <Newarrival/>
     </div>
   );
 };
