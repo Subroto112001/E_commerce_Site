@@ -5,6 +5,7 @@ import BrowseCategroy from "../Component/HomePageComponent/BrowseCategory/Index"
 import BestSellingProduct from "../Component/HomePageComponent/BestSellingProduct/BestSellingProduct";
 import Categories from "../Component/HomePageComponent/Ctegories/Categories";
 import Newarrival from "../Component/HomePageComponent/NewArrival/Newarrival";
+import Delivery from "../Component/HomePageComponent/Delivery/Delivery";
 
 const HomePage = () => {
   return (
@@ -16,7 +17,8 @@ const HomePage = () => {
   
       <BestSellingProduct />
       <Categories />
-      <Newarrival/>
+      <Newarrival />
+      <Delivery/>
     </div>
   );
 };
