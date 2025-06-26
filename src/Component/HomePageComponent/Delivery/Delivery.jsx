@@ -1,5 +1,7 @@
 import React from 'react'
+import { BiSupport } from 'react-icons/bi';
 import { CiDeliveryTruck } from 'react-icons/ci';
+import { MdOutlineSecurity } from 'react-icons/md';
 
 const Delivery = () => {
   return (
@@ -20,7 +22,7 @@ const Delivery = () => {
         </div>
         <div className="pt-[140px] flex justify-center flex-col items-center">
           <div className="bg-black text-white text-[30px] w-[80px] h-[80px] rounded-full flex justify-center items-center border-[11px] border-[#C1C0C1] ">
-            <CiDeliveryTruck />
+            <BiSupport />
           </div>
           <div className="flex flex-col justify-center items-center mt-[24px] gap-2">
             <h3 className="text-[20px] font-semibold font-poppins text-black ">
@@ -33,7 +35,7 @@ const Delivery = () => {
         </div>
         <div className="pt-[140px] flex justify-center flex-col items-center">
           <div className="bg-black text-white text-[30px] w-[80px] h-[80px] rounded-full flex justify-center items-center border-[11px] border-[#C1C0C1] ">
-            <CiDeliveryTruck />
+            <MdOutlineSecurity />
           </div>
           <div className="flex flex-col justify-center items-center mt-[24px] gap-2">
             <h3 className="text-[20px] font-semibold font-poppins text-black ">

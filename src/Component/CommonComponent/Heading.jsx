@@ -1,7 +1,7 @@
 import React from "react";
 import CountdownTimer from "../TimerCOmponent/Index";
 
-const Heading = ({ HeadingTitle, SeconderyHeading, showtimer, isButton }) => {
+const Heading = ({ HeadingTitle, SeconderyHeading, showtimer, isButton, isSeccendorytitle }) => {
   return (
     <div className="w-full">
       <div className="flex flex-row gap-[16px] items-center">
@@ -14,7 +14,7 @@ const Heading = ({ HeadingTitle, SeconderyHeading, showtimer, isButton }) => {
         <div className="mt-[24px] flex gap-[87px]">
           <h3 className="text-[36px] font-semibold font-inter text-black">
             {SeconderyHeading}
-          </h3>{" "}
+          </h3>
           {showtimer && <CountdownTimer />}
         </div>
         <div>

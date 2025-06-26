@@ -5,7 +5,7 @@ import PlayStore from "../../../assets/Footer/PlayStore.png"
 import AppleStore from "../../../assets/Footer/AppleStore.png";
 import { RiFacebookLine } from "react-icons/ri";
 import { IoLogoInstagram } from "react-icons/io";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaRegCopyright } from "react-icons/fa";
 export const Footer = () => {
   return (
     <div className="container mt-[140px]">
@@ -147,6 +147,12 @@ export const Footer = () => {
               </span>
             </div>
           </div>
+        </div>
+        <div className="flex justify-center items-center mt-[76px]">
+          <h3 className="text-[#3D3D3D] text-[16px] font-poppins font-normal flex justify-center items-center gap-[6px]">
+            <FaRegCopyright />
+            Copyright Rimel 2022. All right reserved
+          </h3>
         </div>
       </div>
     </div>

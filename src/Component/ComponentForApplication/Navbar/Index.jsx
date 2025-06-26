@@ -1,16 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
-import { MdLocalMall, MdOutlineCancel, MdOutlineFavoriteBorder, MdOutlineLocalMall, MdOutlineShoppingCart } from "react-icons/md";
-import { FaRegStar, FaUserAlt, } from "react-icons/fa";
+import {
+  MdLocalMall,
+  MdOutlineCancel,
+  MdOutlineFavoriteBorder,
+  MdOutlineLocalMall,
+  MdOutlineShoppingCart,
+} from "react-icons/md";
+import { FaRegStar, FaUserAlt } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 export const Navbar = () => {
-
-
-  const [userAccount, setUserAccount] = useState(false)
-
-
+  const [userAccount, setUserAccount] = useState(false);
+const [wishlist, setWishlist]= useState(false)
+  const navigate = useNavigate();
 
   const navItem = [
     {
@@ -35,12 +39,21 @@ export const Navbar = () => {
     },
   ];
 
+  /**
+   *
+   * todo : this will route wishlist page
+   *
+   * */
 
+  const HandleWishlist = () => {
+    navigate("/wishlist");
+    setWishlist(!wishlist);
+  };
 
- 
   const handleuserAccount = () => {
     setUserAccount(!userAccount);
-  }
+  };
+
   return (
     <div className="container bg-white border-b-gray-500 border-b-[1px] ">
       <div className="flex justify-between items-center pt-[47px] pb-[23px]  ">
@@ -88,23 +101,35 @@ export const Navbar = () => {
             </span>
           </div>
           <div className="flex gap-[7px] justify-center items-center relative">
-            <span className="text-[32px] cursor-pointer">
-              <MdOutlineFavoriteBorder />
-            </span>
+            {wishlist ? (
+              <span
+                className="text-[32px] text-red-500 cursor-pointer"
+                onClick={HandleWishlist}
+              >
+                <MdOutlineFavoriteBorder />
+              </span>
+            ) : (
+              <span
+                className="text-[32px] cursor-pointer"
+                onClick={HandleWishlist}
+              >
+                <MdOutlineFavoriteBorder />
+              </span>
+            )}
             <span className="text-[32px] cursor-pointer">
               <MdOutlineShoppingCart />
             </span>
             {/* user jsx */}
-           
-              <span
-                className={`text-[30px] cursor-pointer ${
-                  userAccount ? "text-red-400" : ""
-                }`}
-                onClick={handleuserAccount}
-              >
-                <FaUserAlt />
-              </span>
-         
+
+            <span
+              className={`text-[30px] cursor-pointer ${
+                userAccount ? "text-red-400" : ""
+              }`}
+              onClick={handleuserAccount}
+            >
+              <FaUserAlt />
+            </span>
+
             {/* user jsx */}
           </div>
           {userAccount && (
