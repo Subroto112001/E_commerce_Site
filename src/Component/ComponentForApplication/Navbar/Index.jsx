@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import {
   MdLocalMall,
@@ -14,7 +14,9 @@ import { BiLogOut } from "react-icons/bi";
 export const Navbar = () => {
   const [userAccount, setUserAccount] = useState(false);
 const [wishlist, setWishlist]= useState(false)
+const [cart, setcart]= useState(false)
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navItem = [
     {
@@ -48,6 +50,10 @@ const [wishlist, setWishlist]= useState(false)
   const HandleWishlist = () => {
     navigate("/wishlist");
     setWishlist(!wishlist);
+  };
+  const HandleCart = () => {
+    navigate("/cart");
+    setcart(!cart);
   };
 
   const handleuserAccount = () => {
@@ -101,24 +107,24 @@ const [wishlist, setWishlist]= useState(false)
             </span>
           </div>
           <div className="flex gap-[7px] justify-center items-center relative">
-            {wishlist ? (
-              <span
-                className="text-[32px] text-red-500 cursor-pointer"
-                onClick={HandleWishlist}
-              >
-                <MdOutlineFavoriteBorder />
-              </span>
-            ) : (
-              <span
-                className="text-[32px] cursor-pointer"
-                onClick={HandleWishlist}
-              >
-                <MdOutlineFavoriteBorder />
-              </span>
-            )}
-            <span className="text-[32px] cursor-pointer">
+            <span
+              className={`text-[32px] cursor-pointer ${
+                location.pathname === "/wishlist" ? "text-red-500" : ""
+              }`}
+              onClick={HandleWishlist}
+            >
+              <MdOutlineFavoriteBorder />
+            </span>
+
+            <span
+              className={`text-[32px] cursor-pointer ${
+                location.pathname === "/cart" ? "text-red-500" : ""
+              }`}
+              onClick={HandleCart}
+            >
               <MdOutlineShoppingCart />
             </span>
+
             {/* user jsx */}
 
             <span
