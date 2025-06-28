@@ -85,7 +85,7 @@ const Wishlist = () => {
                 Just For You
               </h3>
                       </div>
-                   <button></button>   
+                   <button className="text-[16px] font-medium font-poppins text-black py-[16px] px-[48px] rounded border bg-white cursor-pointer">See All</button>   
           </div>
 
           <div className="flex justify-between items-center">
