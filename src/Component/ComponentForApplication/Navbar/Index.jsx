@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import {
@@ -13,11 +13,11 @@ import { FiUser } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 export const Navbar = () => {
   const [userAccount, setUserAccount] = useState(false);
-const [wishlist, setWishlist]= useState(false)
-const [cart, setcart]= useState(false)
+  const [wishlist, setWishlist] = useState(false);
+  const [cart, setcart] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
+const [useraccount, setuseraccount] =useState(false);
   const navItem = [
     {
       id: 1,
@@ -59,6 +59,9 @@ const [cart, setcart]= useState(false)
   const handleuserAccount = () => {
     setUserAccount(!userAccount);
   };
+  const handleMyAccount = () => {
+    setuseraccount(!useraccount);
+  }
 
   return (
     <div className="container bg-white border-b-gray-500 border-b-[1px] ">
@@ -128,9 +131,9 @@ const [cart, setcart]= useState(false)
             {/* user jsx */}
 
             <span
-              className={`text-[30px] cursor-pointer ${
-                userAccount ? "text-red-400" : ""
-              }`}
+              className={`text-[30px] p-1 ${
+                location.pathname === "/account" ? "bg-red-400 rounded-full text-white" : ""
+              } cursor-pointer ${userAccount ? "text-red-400" : ""}`}
               onClick={handleuserAccount}
             >
               <FaUserAlt />
@@ -144,7 +147,9 @@ const [cart, setcart]= useState(false)
                 <span className="text-[22px]">
                   <FiUser />
                 </span>
-                <h3>Manage My Account</h3>
+                <NavLink to={"/account"} onClick={handleMyAccount}>
+                  Manage My Account
+                </NavLink>
               </div>
               <div className="flex gap-[10px] p-1 items-center hover:translate-1 hover:bg-white hover:text-black transition-all ">
                 <span className="text-[22px]">

@@ -10,6 +10,7 @@ import Wishlist from "./Pages/Wishlist";
 import Cart from "./Pages/Cart";
 import SignUp from "./Pages/AuthenticationPage/SignUp";
 import Login from "./Pages/AuthenticationPage/Login";
+import Account from "./Pages/Account";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/account" element={<Account />} />
         </Route>
       </Routes>
     </BrowserRouter>
