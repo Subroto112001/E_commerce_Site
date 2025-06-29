@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, NavLink } from "react-router-dom";
+import { BrowserRouter, NavLink, Outlet } from "react-router-dom";
 
 const Account = () => {
   return (
@@ -47,17 +47,31 @@ const Account = () => {
 
       {/* header area */}
 
-      <div>
-        <h1 className="text-[16px] font-poppins font-medium text-text2-color ">
-          Manage Account
-        </h1>
-        <div className="mt-4 pl-[35px] flex flex-col gap-2">
-          <h1 className="text-[16px] font-poppins font-normal">My Profile</h1>
-          <h1 className="text-[16px] font-poppins font-normal">Address Book</h1>
-          <h1 className="text-[16px] font-poppins font-normal">
-            My Payment Options
+      <div className="flex flex-row justify-between items-start">
+        <div>
+          <h1 className="text-[16px] font-poppins font-medium text-text2-color ">
+            Manage Account
           </h1>
+          <div className="mt-4 pl-[35px] flex flex-col gap-2">
+            <NavLink
+              to={"/account/profile"}
+              className="text-[16px] font-poppins font-normal"
+            >
+              My Profile
+            </NavLink>
+            <h1 className="text-[16px] font-poppins font-normal">
+              Address Book
+            </h1>
+            <h1 className="text-[16px] font-poppins font-normal">
+              My Payment Options
+            </h1>
+          </div>
         </div>
+        {/* right side component */}
+        <div className="w-[70%]">
+          <Outlet />
+        </div>
+        {/* right side component */}
       </div>
     </div>
   );
