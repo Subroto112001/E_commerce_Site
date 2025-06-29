@@ -1,7 +1,8 @@
-import React from "react";
-import SignUpImage from "../assets/SignUp/SignUp.png";
-import { FcGoogle } from "react-icons/fc";
-const SignUp = () => {
+import React from 'react'
+import SignUpImage from "../../assets/SignUp//SignUp.png"
+import { FcGoogle } from 'react-icons/fc';
+import { NavLink } from 'react-router-dom';
+const Login = () => {
   return (
     <div className="container">
       <div className="flex justify-between items-center mt-[60px] mb-[140px]">
@@ -16,7 +17,7 @@ const SignUp = () => {
           <div>
             {/* Header Title will be here */}
             <h2 className="font-medium font-inter text-[36px] text-text2-color ">
-              Create an account
+              Log in to Exclusive
             </h2>
             <h2 className="font-normal font-poppins text-[16px] text-text2-color mt-6">
               Enter your details below
@@ -25,12 +26,6 @@ const SignUp = () => {
 
             {/* input box is here */}
             <div className="Inputbox mt-12 flex flex-col gap-10">
-              <input
-                type="text"
-                placeholder="Name"
-                className="border-b w-[350px] pb-2"
-              />
-
               <input
                 type="text"
                 placeholder="Email or Phone Number"
@@ -46,23 +41,31 @@ const SignUp = () => {
 
             {/* Button is here */}
 
-            <div className="flex flex-col justify-center items-center mt-10 gap-4">
-              <button className="bg-Secondary2_color py-4 px-[122px] font-poppins text-[16px] font-medium text-white rounded">
-                Create Account
+            <div className="flex justify-between items-center mt-10 gap-4">
+              <button className="cursor-pointer bg-Secondary2_color py-4 px-[48px] font-poppins text-[16px] font-medium text-white rounded">
+                Log In
               </button>
-              <button className="bg-white py-4 px-[86px] font-poppins text-[16px] font-medium text-black rounded flex flex-row items-center justify-center gap-4 border">
-                <span className="text-[24px]">
-                  <FcGoogle />
-                </span>
-                Sign up with Google
-              </button>
+              <h3 className='cursor-pointer font-poppins font-normal text-[16px] text-Secondary2_color'> Forget Password</h3>
             </div>
             {/* Button is here */}
+            {/* Down Note is here */}
+            <div className=" mt-[34px] flex justify-center items-center">
+              <h3 className="text-[16px] font-normal font-poppins text-black">
+              haven't account?{" "}
+                <NavLink
+                  to={"/signUp"}
+                  className="font-medium border-b pb-1 cursor-pointer"
+                >
+                  Sign Up
+                </NavLink>
+              </h3>
+            </div>
+            {/* Down Note is here */}
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default SignUp;
+export default Login

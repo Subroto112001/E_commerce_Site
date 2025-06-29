@@ -5,9 +5,11 @@ import HomePage from "./Pages/HomePage";
 import PageHolder from "./Component/PageHolder";
 import Contact from "./Pages/Contact";
 import About from "./Pages/About";
-import SignUp from "./Pages/SignUp";
+
 import Wishlist from "./Pages/Wishlist";
 import Cart from "./Pages/Cart";
+import SignUp from "./Pages/AuthenticationPage/SignUp";
+import Login from "./Pages/AuthenticationPage/Login";
 
 const App = () => {
   return (
@@ -18,6 +20,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/cart" element={<Cart />} />
         </Route>
