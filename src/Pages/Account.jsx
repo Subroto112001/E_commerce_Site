@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter, NavLink } from 'react-router-dom'
+import React from "react";
+import { BrowserRouter, NavLink } from "react-router-dom";
 
 const Account = () => {
   return (
@@ -45,16 +45,22 @@ const Account = () => {
         </div>
       </div>
 
-          {/* header area */}
-          
-          <BrowserRouter>
-          
-          
-          </BrowserRouter>
+      {/* header area */}
 
-
+      <div>
+        <h1 className="text-[16px] font-poppins font-medium text-text2-color ">
+          Manage Account
+        </h1>
+        <div className="mt-4 pl-[35px] flex flex-col gap-2">
+          <h1 className="text-[16px] font-poppins font-normal">My Profile</h1>
+          <h1 className="text-[16px] font-poppins font-normal">Address Book</h1>
+          <h1 className="text-[16px] font-poppins font-normal">
+            My Payment Options
+          </h1>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default Account
+export default Account;
