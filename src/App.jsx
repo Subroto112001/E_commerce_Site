@@ -12,6 +12,7 @@ import SignUp from "./Pages/AuthenticationPage/SignUp";
 import Login from "./Pages/AuthenticationPage/Login";
 import Account from "./Pages/Account";
 import MyProfile from "./Component/AccountPageComponent/MyProfile";
+import CheckOut from "./Pages/CheckOut";
 
 const App = () => {
   return (
@@ -28,6 +29,10 @@ const App = () => {
           <Route path="/account/profile" element={<Account />}>
             <Route path="/account/profile" element={<MyProfile />} />
           </Route>
+          <Route
+            path="/account/profile/product/viewcart/checkout"
+            element={<CheckOut />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
