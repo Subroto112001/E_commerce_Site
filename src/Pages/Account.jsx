@@ -55,7 +55,13 @@ const Account = () => {
           <div className="mt-4 pl-[35px] flex flex-col gap-2">
             <NavLink
               to={"/account/profile"}
-              className="text-[16px] font-poppins font-normal"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "text-black "
+                  : isActive
+                  ? " text-red-600 text-[16px] font-poppins font-normal"
+                  : "text-black text-[16px] font-poppins font-normal"
+              }
             >
               My Profile
             </NavLink>

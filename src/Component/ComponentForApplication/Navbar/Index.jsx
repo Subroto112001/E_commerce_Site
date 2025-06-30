@@ -132,7 +132,9 @@ const [useraccount, setuseraccount] =useState(false);
 
             <span
               className={`text-[30px] p-1 ${
-                location.pathname === "/account" ? "bg-red-400 rounded-full text-white" : ""
+                location.pathname === "/account"
+                  ? "bg-red-400 rounded-full text-white"
+                  : ""
               } cursor-pointer ${userAccount ? "text-red-400" : ""}`}
               onClick={handleuserAccount}
             >
@@ -147,7 +149,7 @@ const [useraccount, setuseraccount] =useState(false);
                 <span className="text-[22px]">
                   <FiUser />
                 </span>
-                <NavLink to={"/account"} onClick={handleMyAccount}>
+                <NavLink to={"/account/profile"} onClick={handleMyAccount}>
                   Manage My Account
                 </NavLink>
               </div>

@@ -3,7 +3,7 @@ import React from 'react'
 const MyProfile = () => {
   return (
     <div>
-      <div>
+      <div className='mt-[40px]'>
         <h1 className="mt-[16px] text-[16px] font-poppins font-medium text-Secondary2_color">
           Edit Your Profile
         </h1>
