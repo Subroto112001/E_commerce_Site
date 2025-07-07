@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../../CommonComponent/Heading";
 
 import ItemComponent from "../../CommonComponent/ItemComponent";
@@ -10,96 +10,29 @@ import Image2 from "../../../assets/Flash/KeyBorad.png";
 import Image3 from "../../../assets/Flash/Chair.png";
 import Image4 from "../../../assets/Flash/Monitorr.png";
 import Slider from "react-slick";
-
+import { useGetProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
+import { useSelector, useDispatch } from "react-redux";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 
 
 const FlashPart = () => {
-  const FlashSalesItem = [
-    {
-      id: 1,
-      name: "HAVIT HV-G92 Gamepad",
-      price: "$120",
-      prevpRICE: "$160",
-      rating: "88",
-      picture: Image1,
-      discount: "-40%",
-    },
-    {
-      id: 2,
-      name: "AK-900 Wired Keyboard",
-      price: "$960",
-      prevpRICE: "$1160",
-      rating: "75",
-      picture: Image2,
-      discount: "-35%",
-    },
-    {
-      id: 3,
-      name: "IPS LCD Gaming Monitor",
-      price: "$1370",
-      prevpRICE: "$400",
-      rating: "99",
-      picture: Image4,
-      discount: "-30%",
-    },
-    {
-      id: 4,
-      name: "S-Series Comfort Chair ",
-      price: "$375",
-      prevpRICE: "$400",
-      rating: "99",
-      picture: Image3,
-      discount: "-25%",
-    },
-    {
-      id: 5,
-      name: "S-Series Comfort Chair ",
-      price: "$375",
-      prevpRICE: "$400",
-      rating: "99",
-      picture: Image2,
-      discount: "-40%",
-    },
-    {
-      id: 6,
-      name: "S-Series Comfort Chair ",
-      price: "$375",
-      prevpRICE: "$400",
-      rating: "99",
-      picture: Image2,
-      discount: "-40%",
-    },
-    {
-      id: 7,
-      name: "S-Series Comfort Chair ",
-      price: "$375",
-      prevpRICE: "$400",
-      rating: "99",
-      picture: Image2,
-      discount: "-40%",
-    },
-    {
-      id: 8,
-      name: "S-Series Comfort Chair ",
-      price: "$375",
-      prevpRICE: "$400",
-      rating: "99",
-      picture: Image2,
-      discount: "-40%",
-    },
-    {
-      id: 9,
-      name: "S-Series Comfort Chair ",
-      price: "$375",
-      prevpRICE: "$400",
-      rating: "99",
-      picture: Image2,
-      discount: "-40%",
-    },
-  ];
+  
+  const { data, error, isLoading } = useGetProductQuery();
+  const [productdata, setproductdata] = useState([]);
+
+  
+
+  useEffect(() => {
+    if (Array.isArray(data?.products)) {
+      setproductdata(data.products);
+    } else {
+      setproductdata([]); // fallback to empty array
+    }
+  }, [data]);
+  
+
 
   const NextArrow = (props) => {
     const { onClick } = props;
@@ -149,11 +82,11 @@ const FlashPart = () => {
         <div className="relative">
           <div className="slider-container ">
             <Slider {...settings}>
-              {FlashSalesItem.map((item) => (
+              {productdata.map((item) => (
                 <div>
                   <ItemComponent
-                    itemName={item.name}
-                    itemPicture={item.picture}
+                    itemName={item.title}
+                    itemPicture={item.images[0]}
                     itemDiscount={item.discount}
                     itemPrice={item.price}
                     itemPrevpRICE={item.prevpRICE}
