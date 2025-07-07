@@ -20,17 +20,11 @@ import "slick-carousel/slick/slick-theme.css";
 const FlashPart = () => {
   
   const { data, error, isLoading } = useGetProductQuery();
-  const [productdata, setproductdata] = useState([]);
+  
 
   
 
-  useEffect(() => {
-    if (Array.isArray(data?.products)) {
-      setproductdata(data.products);
-    } else {
-      setproductdata([]); // fallback to empty array
-    }
-  }, [data]);
+  
   
 
 
@@ -82,7 +76,7 @@ const FlashPart = () => {
         <div className="relative">
           <div className="slider-container ">
             <Slider {...settings}>
-              {productdata.map((item) => (
+              {data?.products.map((item) => (
                 <div>
                   <ItemComponent
                     itemName={item.title}
