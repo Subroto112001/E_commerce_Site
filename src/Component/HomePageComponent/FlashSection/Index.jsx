@@ -14,19 +14,10 @@ import { useGetProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
 import { useSelector, useDispatch } from "react-redux";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-
+import SkeletonCard from "../../Skeliton/Skeliton";
 
 const FlashPart = () => {
-  
   const { data, error, isLoading } = useGetProductQuery();
-  
-
-  
-
-  
-  
-
 
   const NextArrow = (props) => {
     const { onClick } = props;
@@ -78,16 +69,20 @@ const FlashPart = () => {
             <Slider {...settings}>
               {data?.products.map((item) => (
                 <div>
-                  <ItemComponent
-                    itemName={item.title}
-                    itemPicture={item.images[0]}
-                    itemDiscount={item.discount}
-                    itemPrice={item.price}
-                    itemPrevpRICE={item.prevpRICE}
-                    itemRating={item.rating}
-                    IsDiscount={true}
-                    isAddcrat={true}
-                  />
+                  {isLoading ? (
+                    <SkeletonCard />
+                  ) : (
+                    <ItemComponent
+                      itemName={item.title}
+                      itemPicture={item.images[0]}
+                      itemDiscount={item.discount}
+                      itemPrice={item.price}
+                      itemPrevpRICE={item.prevpRICE}
+                      itemRating={item.rating}
+                      IsDiscount={true}
+                      isAddcrat={true}
+                    />
+                  )}
                 </div>
               ))}
             </Slider>
