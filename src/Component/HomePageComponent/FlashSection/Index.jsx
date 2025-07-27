@@ -79,7 +79,7 @@ const FlashPart = () => {
                         2
                       )}
                       itemPrevpRICE={item.price}
-                      itemRating={item.rating}
+                      itemRating={item?.rating}
                       IsDiscount={true}
                       isAddcrat={true}
                     />
