@@ -4,14 +4,10 @@ import Heading from "../../CommonComponent/Heading";
 import ItemComponent from "../../CommonComponent/ItemComponent";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
-import Image1 from "../../../assets/Flash/GamingJoyestick.png";
-
-import Image2 from "../../../assets/Flash/KeyBorad.png";
-import Image3 from "../../../assets/Flash/Chair.png";
-import Image4 from "../../../assets/Flash/Monitorr.png";
+import {calculateDiscountPrice} from "../../../Utils/Calculation"
 import Slider from "react-slick";
 import { useGetProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
-import { useSelector, useDispatch } from "react-redux";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SkeletonCard from "../../Skeliton/Skeliton";
@@ -52,6 +48,7 @@ const FlashPart = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
+  console.log(data);
 
   return (
     <div className="container  ">
@@ -75,9 +72,13 @@ const FlashPart = () => {
                     <ItemComponent
                       itemName={item.title}
                       itemPicture={item.images[0]}
-                      itemDiscount={item.discount}
-                      itemPrice={item.price}
-                      itemPrevpRICE={item.prevpRICE}
+                      itemDiscount={item.discountPercentage}
+                      itemPrice={calculateDiscountPrice(
+                        item.price,
+                        item.discountPercentage,
+                        2
+                      )}
+                      itemPrevpRICE={item.price}
                       itemRating={item.rating}
                       IsDiscount={true}
                       isAddcrat={true}

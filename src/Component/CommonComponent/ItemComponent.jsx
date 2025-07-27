@@ -1,6 +1,7 @@
 import React from "react";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
+import Star from "./Star";
 
 const ItemComponent = ({
   itemName,
@@ -12,6 +13,12 @@ const ItemComponent = ({
   IsDiscount,
   isAddcrat,
 }) => {
+
+
+ 
+
+
+
   return (
     <div>
       <div>
@@ -23,7 +30,7 @@ const ItemComponent = ({
           {IsDiscount && (
             <div className="absolute top-[12px] left-[12px] bg-Secondary2_color inline-block px-[12px] py-[4px] rounded ">
               <span className="font-poppins font-normal text-[12px] text-white">
-                {itemDiscount}
+                {itemDiscount} %
               </span>
             </div>
           )}
@@ -52,7 +59,7 @@ const ItemComponent = ({
         </div>
 
         <div className="mt-[16px]">
-          <h3 className="font-poppins text-[16px] font-medium text-black">
+          <h3 className="font-poppins text-[16px] font-medium text-black truncate">
             {itemName}
           </h3>
           <div className="flex gap-[12px]">
@@ -64,12 +71,10 @@ const ItemComponent = ({
             </span>
           </div>
           <div className="flex gap-[8px] items-center">
-            <div className="flex text-yellow-400">
-              {[...new Array(5)].map((_, index) => (
-                <span>
-                  <FaStar />
-                </span>
-              ))}
+            <div className="flex">
+              <span>
+                <Star rating={itemRating} />
+              </span>
             </div>
             <div>
               <span className="text-[14px] text-text2-color">{`(${itemRating})`}</span>

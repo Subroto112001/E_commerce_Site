@@ -57,6 +57,7 @@
 .container {
   padding-left: 135px;
   padding-right: 135px;
+  margin: auto;
 }
 
 @layer components {

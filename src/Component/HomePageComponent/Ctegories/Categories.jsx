@@ -2,7 +2,7 @@ import React from "react";
 import SoundBox from "../../../assets/Categories/Categories.png";
 const Categories = () => {
   return (
-    <div className="container mt-[140px]">
+    <div className="container pt-[140px]">
       <div className="p-[44px] bg-black flex flex-row items-center justify-between">
         <div className="left ">
           <div className="flex flex-col justify-center gap-8">
