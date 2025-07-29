@@ -12,9 +12,14 @@ import { CiCamera, CiHeadphones, CiMobile4, CiMonitor } from "react-icons/ci";
 import { BsSmartwatch } from "react-icons/bs";
 import { PiGameControllerThin } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
+import { useProductCategoryListQuery } from "../../../Features/AllSlice/Api/ProductApi";
 
 const BrowseCategroy = () => {
-const NextArrow = (props) => {
+
+    const { data, error, isLoading } = useProductCategoryListQuery();
+
+  const NextArrow = (props) => {
+
     const { onClick } = props;
     return (
       <div
@@ -86,7 +91,11 @@ const NextArrow = (props) => {
         icon: <PiGameControllerThin />,
         path: "/gaming",
       },
-    ];
+  ];
+  
+
+  console.log(data);
+  
   return (
     <div className="container mx-auto">
       <div className="mt-[80px] flex gap-4 ">

@@ -48,7 +48,7 @@ const FlashPart = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  console.log(data);
+ 
 
   return (
     <div className="container  ">

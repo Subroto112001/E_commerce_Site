@@ -6,7 +6,7 @@ import table from "../../../assets/Bestselling/table.png";
 import Bag from "../../../assets/Bestselling/Bag.png";
 
 import ItemComponent from "../../CommonComponent/ItemComponent";
-import { useGetProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
+import { useBestSellingProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
 import { calculateDiscountPrice } from "../../../Utils/Calculation";
 import Slider from "react-slick";
 import SkeletonCard from "../../Skeliton/Skeliton";
@@ -14,41 +14,21 @@ import { GrFormPrevious } from "react-icons/gr";
 import { MdOutlineNavigateNext } from "react-icons/md";
 const BestSellingProduct = () => {
  
-   const NextArrow = (props) => {
-     const { onClick } = props;
-     return (
-       <div
-         className="absolute top-[-60px] right-0 z-10 cursor-pointer bg-black text-white p-2 rounded-full"
-         onClick={onClick}
-       >
-         <MdOutlineNavigateNext size={24} />
-       </div>
-     );
-   };
- 
-   const PrevArrow = (props) => {
-     const { onClick } = props;
-     return (
-       <div
-         className="absolute top-[-60px] right-[60px] z-10 cursor-pointer bg-black text-white p-2 rounded-full"
-         onClick={onClick}
-       >
-         <GrFormPrevious size={24} />
-       </div>
-     );
-   };
+   
    const settings = {
      dots: false,
      infinite: true,
      speed: 500,
      slidesToShow: 4,
      slidesToScroll: 1,
-     arrows: true,
-     nextArrow: <NextArrow />,
-     prevArrow: <PrevArrow />,
+     arrows: false,
+    
    };
 
-   const { data, error, isLoading } = useGetProductQuery();
+  const { data, error, isLoading } = useBestSellingProductQuery();
+  
+  
+  
   return (
     <div className="container">
       <div className="pt-[70px]">
