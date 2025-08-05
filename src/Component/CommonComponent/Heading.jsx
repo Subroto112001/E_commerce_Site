@@ -1,7 +1,13 @@
 import React from "react";
 import CountdownTimer from "../TimerCOmponent/Index";
 
-const Heading = ({ HeadingTitle, SeconderyHeading, showtimer, isButton, isSeccendorytitle }) => {
+const Heading = ({
+  HeadingTitle,
+  SeconderyHeading,
+  showtimer,
+  isButton,
+  isSeccendorytitle,
+}) => {
   return (
     <div className="w-full">
       <div className="flex flex-row gap-[16px] items-center">

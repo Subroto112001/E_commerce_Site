@@ -6,8 +6,8 @@ import { MdOutlineSecurity } from 'react-icons/md';
 const Delivery = () => {
   return (
     <div className="container">
-      <div className="flex flex-row gap-[88px] items-center justify-center">
-        <div className="pt-[140px] flex justify-center flex-col items-center">
+      <div className="flex flex-row gap-[88px] items-center justify-center pt-[140px] pb-[140px]">
+        <div className=" flex justify-center flex-col items-center">
           <div className="bg-black text-white text-[30px] w-[80px] h-[80px] rounded-full flex justify-center items-center border-[11px] border-[#C1C0C1] ">
             <CiDeliveryTruck />
           </div>
@@ -20,7 +20,7 @@ const Delivery = () => {
             </h3>
           </div>
         </div>
-        <div className="pt-[140px] flex justify-center flex-col items-center">
+        <div className=" flex justify-center flex-col items-center">
           <div className="bg-black text-white text-[30px] w-[80px] h-[80px] rounded-full flex justify-center items-center border-[11px] border-[#C1C0C1] ">
             <BiSupport />
           </div>
@@ -33,7 +33,7 @@ const Delivery = () => {
             </h3>
           </div>
         </div>
-        <div className="pt-[140px] flex justify-center flex-col items-center">
+        <div className=" flex justify-center flex-col items-center">
           <div className="bg-black text-white text-[30px] w-[80px] h-[80px] rounded-full flex justify-center items-center border-[11px] border-[#C1C0C1] ">
             <MdOutlineSecurity />
           </div>

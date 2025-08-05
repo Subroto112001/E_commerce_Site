@@ -35,7 +35,7 @@
   --HoverButton2_color: #a0bce0;
   --inter: "Inter", sans-serif;
   --poppins: "Poppins", sans-serif;
-  --text2-color : "#808080"
+  --text2-color: "#808080";
 }
 @theme {
   --color-white: var(--white_color);
@@ -82,7 +82,7 @@
     -moz-transition: ease-in-out 0.2s;
     -ms-transition: ease-in-out 0.2s;
     -o-transition: ease-in-out 0.2s;
-}
+  }
   .menuUnderLineBar:hover ::after {
     transform: scale(1);
     -webkit-transform: scale(1);
@@ -95,8 +95,10 @@
   @apply bg-red-400 border-white;
 }
 
-.slick-prev, .slick-next {
+.slick-prev,
+.slick-next {
   z-index: 10;
   display: block !important; /* force করে visible করবে */
   background-color: #000000;
 }
+
