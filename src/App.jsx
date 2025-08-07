@@ -13,6 +13,7 @@ import Login from "./Pages/AuthenticationPage/Login";
 import Account from "./Pages/Account";
 import MyProfile from "./Component/AccountPageComponent/MyProfile";
 import CheckOut from "./Pages/CheckOut";
+import BreadCrumb from "./Component/CommonComponent/BreadCrumb";
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
         <Route path="/" element={<PageHolder />}>
           <Route index element={<HomePage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/breadcrumb/me" element={<BreadCrumb />} />
+
           <Route path="/about" element={<About />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
