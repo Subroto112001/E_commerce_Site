@@ -16,7 +16,7 @@ const ProductComponent = ({
   return (
     <div>
       <div className="mb-[20px]">
-        <div className="w-[200px] h-[200px] bg-secondary_color flex justify-center items-center relative group">
+        <div className="w-[250px] h-[250px] bg-secondary_color flex justify-center items-center relative group">
           <picture>
             <img src={itemPicture} alt={itemPicture} />
           </picture>
@@ -53,9 +53,10 @@ const ProductComponent = ({
         </div>
 
         <div className="mt-[16px]">
-          <h3 className="font-poppins text-[16px] font-medium text-black truncate">
+          <h3 className="font-poppins text-[16px] font-medium text-black overflow-hidden text-ellipsis whitespace-nowrap w-[180px]">
             {itemName}
           </h3>
+
           <div className="flex gap-[12px]">
             <span className="font-poppins text-[16px] font-medium text-Secondary2_color">
               {itemPrice}

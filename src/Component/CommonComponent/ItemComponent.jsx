@@ -59,9 +59,10 @@ const ItemComponent = ({
         </div>
 
         <div className="mt-[16px]">
-          <h3 className="font-poppins text-[16px] font-medium text-black truncate">
+          <h3 className="font-poppins text-[16px] font-medium text-black overflow-hidden text-ellipsis whitespace-nowrap w-[180px]">
             {itemName}
           </h3>
+
           <div className="flex gap-[12px]">
             <span className="font-poppins text-[16px] font-medium text-Secondary2_color">
               {itemPrice}

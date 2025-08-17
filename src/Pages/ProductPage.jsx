@@ -7,11 +7,11 @@ const ProductPage = () => {
   return (
     <div className="container">
       <BreadCrumb />
-      <div className=" flex flex-row">
-        <div className="w-[25%] border-r-[1px] border-gray-500 my-[40px] pr-[16px]">
+      <div className=" flex flex-row gap-3 mb-[40px]">
+        <div className="w-[20%] border-r-[1px] border-gray-500 my-[40px] pr-[16px]">
           <ProductPageLeftside />
         </div>
-        <div className="w-[75%] pl-4">
+        <div className="w-[80%] pl-4">
           <ProductPageRightside />
         </div>
       </div>
