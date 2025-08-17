@@ -118,7 +118,7 @@ const Banner = () => {
                 return (
                   <li
                     key={item.id}
-                    className="flex items-center justify-between text-[16px] p-1 font-normal font-poppins text-black_color transition-all hover:bg-gray-200 hover:translate-1"
+                    className="flex items-center justify-between text-[16px] p-1 font-normal font-poppins text-black_color transition-all hover:bg-gray-200 hover:translate-1  cursor-pointer"
                   >
                     {item.name}
                     <span>
