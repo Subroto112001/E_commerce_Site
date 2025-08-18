@@ -53,6 +53,7 @@ const ProductPageRightside = () => {
   const handlePageItem = (index) => {
     setPage(index);
   };
+ 
   return (
     <div>
       <div className="flex flex-row items-center justify-end gap-x-3">
@@ -64,7 +65,7 @@ const ProductPageRightside = () => {
           value={pagePerShow}
           onChange={(e) => {
             setPagePerShow(Number(e.target.value));
-            setPage(1); 
+            setPage(1);
           }}
         >
           <option value="9">9</option>
@@ -93,7 +94,8 @@ const ProductPageRightside = () => {
                   itemPrevpRICE={item.price}
                   itemRating={item?.rating}
                   IsDiscount={true}
-                  isAddcrat={true}
+                  isAddcrat={false}
+                 
                 />
               ))}
       </div>

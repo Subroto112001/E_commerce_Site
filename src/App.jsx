@@ -15,9 +15,9 @@ import MyProfile from "./Component/AccountPageComponent/MyProfile";
 import CheckOut from "./Pages/CheckOut";
 import BreadCrumb from "./Component/CommonComponent/BreadCrumb";
 import ProductPage from "./Pages/ProductPage";
+import ProductDetails from "./Pages/ProductDetails";
 
 const App = () => {
-  
   return (
     <BrowserRouter>
       <Routes>
@@ -25,9 +25,10 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/breadcrumb/me" element={<BreadCrumb />} />
-          <Route path="/product" element={<ProductPage />} />
-
           <Route path="/about" element={<About />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path="/product-details" element={<ProductDetails />} />
+
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/wishlist" element={<Wishlist />} />

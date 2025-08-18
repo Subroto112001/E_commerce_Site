@@ -16,7 +16,7 @@ const ProductComponent = ({
   return (
     <div>
       <div className="mb-[20px]">
-        <div className="w-[250px] h-[250px] bg-secondary_color flex justify-center items-center relative group">
+        <div className="w-[250px] h-[250px] bg-secondary_color flex justify-center items-center relative group cursor-pointer">
           <picture>
             <img src={itemPicture} alt={itemPicture} />
           </picture>
