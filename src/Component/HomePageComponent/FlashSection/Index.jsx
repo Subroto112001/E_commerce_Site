@@ -11,8 +11,11 @@ import { useGetProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SkeletonCard from "../../Skeliton/Skeliton";
+import { useNavigate } from "react-router-dom";
+import LoadingComponent from "../../CommonComponent/LoadingComponent";
 
 const FlashPart = () => {
+  const navigate = useNavigate()
   const { data, error, isLoading } = useGetProductQuery();
 
   const NextArrow = (props) => {
@@ -48,7 +51,9 @@ const FlashPart = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
- 
+   const handleViewAllProduct = () => {
+     navigate("/product");
+   };
 
   return (
     <div className="container  ">
@@ -67,7 +72,7 @@ const FlashPart = () => {
               {data?.products.map((item) => (
                 <div>
                   {isLoading ? (
-                    <SkeletonCard />
+                    <LoadingComponent/>
                   ) : (
                     <ItemComponent
                       itemName={item.title}
@@ -89,7 +94,10 @@ const FlashPart = () => {
             </Slider>
           </div>
           <div className="flex justify-center items-center mt-[60px]">
-            <button className="bg-Secondary2_color px-[48px] cursor-pointer rounded py-[16px] text-[16px] text-white font-medium font-poppins">
+            <button
+              onClick={() => handleViewAllProduct()}
+              className="bg-Secondary2_color px-[48px] cursor-pointer rounded py-[16px] text-[16px] text-white font-medium font-poppins"
+            >
               View All Products
             </button>
           </div>

@@ -55,7 +55,7 @@ const ProductPageRightside = () => {
   };
   return (
     <div>
-      <div className="flex flex-row items-center justify-end">
+      <div className="flex flex-row items-center justify-end gap-x-3">
         <h2 className="font-poppins text-[16px] font-normal text-black">
           Show:
         </h2>
