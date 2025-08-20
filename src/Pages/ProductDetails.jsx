@@ -8,6 +8,10 @@ import ProductImage4 from "../assets/ProductDetails/ProductDetails4.png";
 import { useGetSingleProductQuery } from "../Features/AllSlice/Api/ProductApi";
 import Star from "../Component/CommonComponent/Star";
 import { calculateDiscountPrice } from "../Utils/Calculation";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { FaRegHeart } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
+import { BsArrowRepeat } from "react-icons/bs";
 const ProductDetails = () => {
   /**
 title :  Data fetching
@@ -47,6 +51,36 @@ title :  Data fetching
       image: ProductImage4,
     },
   ];
+
+  const sizeOfProduct = [
+    {
+      id: 1,
+      size: "XS",
+      CSS: "px-[7px] py-[6px]",
+    },
+    {
+      id: 2,
+      size: "S",
+      CSS: "px-[12px] py-[6px]",
+    },
+    {
+      id: 3,
+      size: "M",
+      CSS: "px-[10px] py-[6px]",
+    },
+    {
+      id: 4,
+      size: "L",
+      CSS: "px-[13px] py-[6px]",
+    },
+    {
+      id: 5,
+      size: "Xl",
+      CSS: "px-[8px] py-[6px]",
+    },
+  ];
+
+  const [count, setCount] = useState(2);
   return (
     <div className="container">
       <div className="mt-4">
@@ -56,10 +90,10 @@ title :  Data fetching
       <div className="flex flex-row justify-between py-10">
         <div className="w-[55%] flex items-center gap-[30px] justify-between ">
           {/* left side images */}
-          <div className="flex flex-col justify-content gap-[16px] ">
+          <div className="flex flex-col justify-content gap-[24px] ">
             {ProductimageHoloder?.map((item) => (
               <div
-                className="px-[25px] py-[12px] bg-secondary_color rounded-[4px] cursor-pointer"
+                className="px-[25px] py-[12px] bg-secondary_color hover:bg-gray-200 transition-all duration-300 rounded-[4px] cursor-pointer"
                 key={item.id}
               >
                 <img
@@ -77,7 +111,7 @@ title :  Data fetching
             <img
               src={image}
               alt={image}
-              className="w-[416px] h-[315px] transition-transform duration-500 ease-in-out group-hover:scale-110"
+              className="w-[416px] h-[343px] transition-transform duration-500 ease-in-out group-hover:scale-110"
             />
           </div>
 
@@ -142,31 +176,91 @@ title :  Data fetching
                   Size:
                 </h3>
                 <div className="flex flex-row items-center gap-4">
-                  <h3 className="font-medium font-poppins text-[14px] text-black px-[7px] py-[6px] border border-black border-opacity-50 rounded">
-                    XS
-                  </h3>
-                  <h3 className="font-medium font-poppins text-[14px] text-black px-[12px] py-[6px] border border-black border-opacity-50 rounded">
-                    S
-                  </h3>
-                  <h3 className="font-medium font-poppins text-[14px] text-black px-[10px] py-[6px] border border-black border-opacity-50 rounded">
-                    M
-                  </h3>
-                  <h3 className="font-medium font-poppins text-[14px] text-black px-[13px] py-[6px] border border-black border-opacity-50 rounded">
-                    L
-                  </h3>
-                  <h3 className="font-medium font-poppins text-[14px] text-black px-[8px] py-[6px] border border-black border-opacity-50 rounded">
-                    XL
-                  </h3>
+                  {sizeOfProduct.map((item) => (
+                    <h3
+                      className={`font-medium ${item.CSS} font-poppins text-[14px] hover:bg-gray-300 transition-all duration-300 cursor-pointer text-black  border border-black border-opacity-50 rounded`}
+                    >
+                      {item.size}
+                    </h3>
+                  ))}
                 </div>
               </div>
               {/* size */}
               {/* quantity */}
-              <div className="flex flex-row">
-                
+              <div className="flex flex-row gap-4 items-center">
+                <div className="flex items-center border rounded ">
+                  {/* Minus Button */}
+                  <button
+                    onClick={() => setCount(count > 0 ? count - 1 : 0)}
+                    className="text-2xl px-3 py-3 border-r font-bold rounded-l-lg  hover:bg-gray-200 cursor-pointer"
+                  >
+                    <FiMinus />
+                  </button>
+
+                  {/* Count Display */}
+                  <div className="text-center px-[34px] py-2 text-[20px] font-medium font-poppins">
+                    {count}
+                  </div>
+
+                  {/* Plus Button */}
+                  <button
+                    onClick={() => setCount(count + 1)}
+                    className="text-2xl px-3 py-3 border-l font-bold rounded-r-lg hover:bg-gray-200 cursor-pointer"
+                  >
+                    <FiPlus />
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="font-medium font-poppins text-[16px] text-gray-50 px-12 py-3 rounded transition-all duration-300 bg-red-500 hover:bg-red-400
+                   cursor-pointer"
+                  >
+                    Buy Now
+                  </button>
+                </div>
+                <button className="px-3.5 py-3.5 rounded border text-[17px] cursor-pointer hover:bg-red-500 hover:text-white transition-all duration-300">
+                  <FaRegHeart />
+                </button>
               </div>
               {/* quantity */}
             </div>
             {/*  color and size  */}
+
+            {/* description  */}
+
+            <div className="flex flex-col border rounded w-[420px] ">
+              <div className="  py-[20px] px-[16px] border-b cursor-pointer hover:bg-gray-100  ">
+                <div className="flex flex-row gap-4 transition-transform duration-500 ease-in-out hover:scale-103">
+                  <span className="text-[45px]">
+                    <TbTruckDelivery />
+                  </span>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-semibold font-poppins text-[16px] text-black">
+                      Free Delivery
+                    </h3>
+                    <h3 className="font-semibold font-poppins text-[12px] text-black">
+                      Enter your postal code for Delivery Availability
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div className="  py-[20px] px-[16px] cursor-pointer hover:bg-gray-100 transition-all duration-300">
+                <div className="flex flex-row gap-4 transition-transform duration-500 ease-in-out hover:scale-103">
+                  <span className="text-[45px]">
+                    <BsArrowRepeat />
+                  </span>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-semibold font-poppins text-[16px] text-black">
+                      Return Delivery
+                    </h3>
+                    <h3 className="font-semibold font-poppins text-[12px] text-black">
+                      Free 30 Days Delivery Returns. Details
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* description  */}
           </div>
         </div>
         {/* product details */}
