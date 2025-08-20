@@ -27,7 +27,7 @@ const ItemComponent = ({
             <img src={itemPicture} alt={itemPicture} />
           </picture>
           {/* absolute item will bw here */}
-          {IsDiscount && (
+          {itemDiscount && (
             <div className="absolute top-[12px] left-[12px] bg-Secondary2_color inline-block px-[12px] py-[4px] rounded ">
               <span className="font-poppins font-normal text-[12px] text-white">
                 {itemDiscount} %

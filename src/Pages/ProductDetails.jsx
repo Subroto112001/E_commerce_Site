@@ -5,13 +5,25 @@ import ProductImage1 from "../assets/ProductDetails/ProductDetails1.png";
 import ProductImage2 from "../assets/ProductDetails/ProductDetails2.png";
 import ProductImage3 from "../assets/ProductDetails/ProductDetails3.png";
 import ProductImage4 from "../assets/ProductDetails/ProductDetails4.png";
-import { useGetSingleProductQuery } from "../Features/AllSlice/Api/ProductApi";
+import { useGetProductQuery, useGetSingleProductQuery } from "../Features/AllSlice/Api/ProductApi";
 import Star from "../Component/CommonComponent/Star";
 import { calculateDiscountPrice } from "../Utils/Calculation";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BsArrowRepeat } from "react-icons/bs";
+import Heading from "../Component/CommonComponent/Heading";
+// swiper slider
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { useProduct } from "../ContextApi/Contextapi";
+import ItemComponent from "../Component/CommonComponent/ItemComponent";
+// swiper slider
 const ProductDetails = () => {
   /**
 title :  Data fetching
@@ -21,13 +33,16 @@ title :  Data fetching
   const { data, error, isLoading } = useGetSingleProductQuery(parseInt(1));
 
   const [image, setimage] = useState(null);
-  console.log(data);
 
+  const { products } = useProduct();
+  console.log(products);
+  
   useEffect(() => {
     if (data?.images) {
       setimage(data.images);
     }
   }, [data]);
+  
 
   /**
    *@desc: image holder Array
@@ -264,6 +279,44 @@ title :  Data fetching
           </div>
         </div>
         {/* product details */}
+      </div>
+      <div className="py-[140px]">
+        <Heading
+          HeadingTitle={"Related Item"}
+          SeconderyHeading={false}
+          showtimer={false}
+          isButton={false}
+          isSeccendorytitle={false}
+        />
+        <div>
+          <Swiper
+            // install Swiper modules
+            modules={[A11y]}
+            spaceBetween={50}
+            slidesPerView={4}
+          >
+            {products?.products.map((item) => (
+              <div>
+                <SwiperSlide>
+                  <ItemComponent
+                    itemName={item.title}
+                    itemPicture={item.images[0]}
+                    itemDiscount={item.discountPercentage}
+                    itemPrice={calculateDiscountPrice(
+                      item.price,
+                      item.discountPercentage,
+                      2
+                    )}
+                    itemPrevpRICE={item.price}
+                    itemRating={item.rating}
+                    IsDiscount={true}
+                    isAddcrat={true}
+                  />
+                </SwiperSlide>
+              </div>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </div>
   );

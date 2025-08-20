@@ -16,32 +16,36 @@ import CheckOut from "./Pages/CheckOut";
 import BreadCrumb from "./Component/CommonComponent/BreadCrumb";
 import ProductPage from "./Pages/ProductPage";
 import ProductDetails from "./Pages/ProductDetails";
+import { ProductProvider } from "./ContextApi/Contextapi";
 
 const App = () => {
+  
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<PageHolder />}>
-          <Route index element={<HomePage />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/breadcrumb/me" element={<BreadCrumb />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/product" element={<ProductPage />} />
-          <Route path="/product-details" element={<ProductDetails />} />
+      <ProductProvider>
+        <Routes>
+          <Route path="/" element={<PageHolder />}>
+            <Route index element={<HomePage />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/breadcrumb/me" element={<BreadCrumb />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/product" element={<ProductPage />} />
+            <Route path="/product-details" element={<ProductDetails />} />
 
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/account/profile" element={<Account />}>
-            <Route path="/account/profile" element={<MyProfile />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/account/profile" element={<Account />}>
+              <Route path="/account/profile" element={<MyProfile />} />
+            </Route>
+            <Route
+              path="/account/profile/product/viewcart/checkout"
+              element={<CheckOut />}
+            />
           </Route>
-          <Route
-            path="/account/profile/product/viewcart/checkout"
-            element={<CheckOut />}
-          />
-        </Route>
-      </Routes>
+        </Routes>
+      </ProductProvider>
     </BrowserRouter>
   );
 };
