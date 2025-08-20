@@ -14,7 +14,7 @@ const BreadCrumb = () => {
         BreadCrumbPath += `/${name}`;
         const isLast = index === pathnameArray?.length - 1;
         return isLast ? (
-          <div className="flex flex-row gap-1.5">
+          <div className="flex flex-row gap-1.5" key={index}>
             <span>/</span>
             <span className="text-gray-500" key={index}>
               {name}
