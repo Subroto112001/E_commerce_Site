@@ -24,16 +24,16 @@ const App = () => {
     <BrowserRouter>
       <ProductProvider>
         <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<PageHolder />}>
             <Route index element={<HomePage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/breadcrumb/me" element={<BreadCrumb />} />
             <Route path="/about" element={<About />} />
             <Route path="/product" element={<ProductPage />} />
-            <Route path="/product-details" element={<ProductDetails />} />
+            <Route path="/product-details/:id" element={<ProductDetails />} />
 
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/account/profile" element={<Account />}>

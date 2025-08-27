@@ -1,13 +1,13 @@
 import React from "react";
-import SignUpImage from "../../assets/SignUp/SignUp.png";
+import SignUpImage from "../../assets/SignUp/EcommerceSignup.png";
 import { FcGoogle } from "react-icons/fc";
 import { NavLink } from "react-router-dom";
 const SignUp = () => {
   return (
     <div className="container">
-      <div className="flex justify-between items-center mt-[60px] mb-[140px]">
+      <div className="flex justify-center h-screen gap-[100px] items-center">
         {/* signup Image is here */}
-        <div className="left">
+        <div className="w-[500px] h-[500px]  left">
           <picture>
             <img src={SignUpImage} alt={SignUpImage} />
           </picture>

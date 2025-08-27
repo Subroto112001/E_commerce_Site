@@ -21,9 +21,9 @@ const BreadCrumb = () => {
             </span>
           </div>
         ) : (
-          <div className="flex flex-row gap-1.5">
+          <div key={index} className="flex flex-row gap-1.5">
             <span>/</span>
-            <span key={index}>
+            <span>
               <Link className="" to={BreadCrumbPath}>
                 {name}
               </Link>

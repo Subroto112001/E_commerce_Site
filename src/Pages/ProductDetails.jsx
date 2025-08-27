@@ -5,7 +5,10 @@ import ProductImage1 from "../assets/ProductDetails/ProductDetails1.png";
 import ProductImage2 from "../assets/ProductDetails/ProductDetails2.png";
 import ProductImage3 from "../assets/ProductDetails/ProductDetails3.png";
 import ProductImage4 from "../assets/ProductDetails/ProductDetails4.png";
-import { useGetProductQuery, useGetSingleProductQuery } from "../Features/AllSlice/Api/ProductApi";
+import {
+  useGetProductQuery,
+  useGetSingleProductQuery,
+} from "../Features/AllSlice/Api/ProductApi";
 import Star from "../Component/CommonComponent/Star";
 import { calculateDiscountPrice } from "../Utils/Calculation";
 import { FiMinus, FiPlus } from "react-icons/fi";
@@ -23,31 +26,44 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useProduct } from "../ContextApi/Contextapi";
 import ItemComponent from "../Component/CommonComponent/ItemComponent";
+import { useParams } from "react-router-dom";
+import { sizeOfProduct } from "../Helpers/ItemProvider";
+import { categoryByProduct } from "../ContextApi/CategoryProduct";
 // swiper slider
 const ProductDetails = () => {
+  const params = useParams();
+
+
+  
+  // console.log(details);
+  // console.log(error);
+  // console.log(isLoading);
+  
   /**
-title :  Data fetching
-*@desc:  data fetch from api
-*/
+   title :  Data fetching
+   *@desc:  data fetch from api
+   */
+  
+  const { data } = useGetSingleProductQuery(parseInt(params?.id));
 
-  const { data, error, isLoading } = useGetSingleProductQuery(parseInt(1));
-
+  
   const [image, setimage] = useState(null);
-
+  
   const { products } = useProduct();
-  console.log(products);
   
   useEffect(() => {
     if (data?.images) {
       setimage(data.images);
     }
   }, [data]);
-  
 
+  // fetch category wise product
+  const { details, error, isLoading } = categoryByProduct(data?.category);
+  
   /**
    *@desc: image holder Array
    */
-
+  
   const ProductimageHoloder = [
     {
       id: 1,
@@ -64,34 +80,6 @@ title :  Data fetching
     {
       id: 4,
       image: ProductImage4,
-    },
-  ];
-
-  const sizeOfProduct = [
-    {
-      id: 1,
-      size: "XS",
-      CSS: "px-[7px] py-[6px]",
-    },
-    {
-      id: 2,
-      size: "S",
-      CSS: "px-[12px] py-[6px]",
-    },
-    {
-      id: 3,
-      size: "M",
-      CSS: "px-[10px] py-[6px]",
-    },
-    {
-      id: 4,
-      size: "L",
-      CSS: "px-[13px] py-[6px]",
-    },
-    {
-      id: 5,
-      size: "Xl",
-      CSS: "px-[8px] py-[6px]",
     },
   ];
 
@@ -193,6 +181,7 @@ title :  Data fetching
                 <div className="flex flex-row items-center gap-4">
                   {sizeOfProduct.map((item) => (
                     <h3
+                      key={item.id}
                       className={`font-medium ${item.CSS} font-poppins text-[14px] hover:bg-gray-300 transition-all duration-300 cursor-pointer text-black  border border-black border-opacity-50 rounded`}
                     >
                       {item.size}
@@ -295,9 +284,9 @@ title :  Data fetching
             spaceBetween={50}
             slidesPerView={4}
           >
-            {products?.products.map((item) => (
+            {details?.products.map((item, index) => (
               <div>
-                <SwiperSlide>
+                <SwiperSlide key={index}>
                   <ItemComponent
                     itemName={item.title}
                     itemPicture={item.images[0]}
