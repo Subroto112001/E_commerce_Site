@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BreadCrumb from "../Component/CommonComponent/BreadCrumb";
-import ProductMainImage from "../assets/ProductDetails/GamingJoysitck.png";
-import ProductImage1 from "../assets/ProductDetails/ProductDetails1.png";
-import ProductImage2 from "../assets/ProductDetails/ProductDetails2.png";
-import ProductImage3 from "../assets/ProductDetails/ProductDetails3.png";
-import ProductImage4 from "../assets/ProductDetails/ProductDetails4.png";
-import {
-  useGetProductQuery,
-  useGetSingleProductQuery,
-} from "../Features/AllSlice/Api/ProductApi";
 import Star from "../Component/CommonComponent/Star";
 import { calculateDiscountPrice } from "../Utils/Calculation";
 import { FiMinus, FiPlus } from "react-icons/fi";
@@ -16,165 +7,141 @@ import { FaRegHeart } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BsArrowRepeat } from "react-icons/bs";
 import Heading from "../Component/CommonComponent/Heading";
-// swiper slider
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { useLocation, useNavigate } from "react-router-dom";
+import { sizeOfProduct } from "../Helpers/ItemProvider";
+import ItemComponent from "../Component/CommonComponent/ItemComponent";
 
+// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { useProduct } from "../ContextApi/Contextapi";
-import ItemComponent from "../Component/CommonComponent/ItemComponent";
-import { useParams } from "react-router-dom";
-import { sizeOfProduct } from "../Helpers/ItemProvider";
-import { categoryByProduct } from "../ContextApi/CategoryProduct";
-// swiper slider
+import { useCategoryByProduct } from "../ContextApi/CategoryProduct";
+import { useGetProductByCategoryQuery } from "../Features/AllSlice/Api/ProductApi";
+
 const ProductDetails = () => {
-  const params = useParams();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const product = state?.product; // navigate থেকে আসা data
 
+  const [image, setImage] = useState(product?.images?.[0]);
+  const [count, setCount] = useState(1);
 
-  
-  // console.log(details);
-  // console.log(error);
-  // console.log(isLoading);
-  
-  /**
-   title :  Data fetching
-   *@desc:  data fetch from api
-   */
-  
-  const { data } = useGetSingleProductQuery(parseInt(params?.id));
-
-  
-  const [image, setimage] = useState(null);
-  
-  const { products } = useProduct();
-  
+  const [productHolder, setProductHolder] = useState({});
+  const [relatedProduct, setRelatedProduct] = useState({});
   useEffect(() => {
-    if (data?.images) {
-      setimage(data.images);
+    if (product) {
+      setProductHolder(product);
+      setImage(product?.images?.[0]);
+       setCount(1);
     }
-  }, [data]);
+  }, [product]);
 
-  // fetch category wise product
-  const { details, error, isLoading } = categoryByProduct(data?.category);
-  
-  /**
-   *@desc: image holder Array
-   */
-  
-  const ProductimageHoloder = [
-    {
-      id: 1,
-      image: ProductImage1,
-    },
-    {
-      id: 2,
-      image: ProductImage2,
-    },
-    {
-      id: 3,
-      image: ProductImage3,
-    },
-    {
-      id: 4,
-      image: ProductImage4,
-    },
-  ];
+  const { details, error, isLoading } = useCategoryByProduct(
+    productHolder.category
+  );
 
-  const [count, setCount] = useState(2);
+  useEffect(() => {
+    if (details) {
+      setRelatedProduct(details);
+    }
+  }, [details]);
+
+  if (!product) {
+    return (
+      <h2 className="text-center mt-10 text-xl font-semibold">
+        No product data found
+      </h2>
+    );
+  }
+
   return (
     <div className="container">
+      {/* Breadcrumb */}
       <div className="mt-4">
         <BreadCrumb />
       </div>
 
       <div className="flex flex-row justify-between py-10">
-        <div className="w-[55%] flex items-center gap-[30px] justify-between ">
-          {/* left side images */}
-          <div className="flex flex-col justify-content gap-[24px] ">
-            {ProductimageHoloder?.map((item) => (
+        {/* Left side (Images) */}
+        <div className="w-[55%] flex items-start gap-[30px]">
+          {/* Small images */}
+          <div className="flex flex-col gap-[16px]">
+            {product.images?.map((img, i) => (
               <div
-                className="px-[25px] py-[12px] bg-secondary_color hover:bg-gray-200 transition-all duration-300 rounded-[4px] cursor-pointer"
-                key={item.id}
+                key={i}
+                className="px-[12px] py-[8px] bg-secondary_color hover:bg-gray-200 transition-all duration-300 rounded-[4px] cursor-pointer"
+                onClick={() => setImage(img)}
               >
                 <img
-                  src={item.image}
-                  alt={item.image}
-                  className="w-[121px] h-[114px]"
-                  onClick={() => setimage(item.image)}
+                  src={img}
+                  alt={product.title}
+                  className="w-[90px] h-[90px] object-contain"
                 />
               </div>
             ))}
           </div>
-          {/* left side images */}
-          {/* rightside big image */}
+
+          {/* Main image */}
           <div className="pt-[154px] pb-[131px] px-[27px] bg-secondary_color rounded-[4px] group overflow-hidden cursor-pointer">
             <img
               src={image}
-              alt={image}
-              className="w-[416px] h-[343px] transition-transform duration-500 ease-in-out group-hover:scale-110"
+              alt={product.title}
+              className="w-[416px] h-[343px] object-contain transition-transform duration-500 ease-in-out group-hover:scale-110"
             />
           </div>
-
-          {/* rightside big image */}
         </div>
-        {/* product details */}
+
+        {/* Right side (Details) */}
         <div className="w-[40%]">
           <div className="flex flex-col gap-y-6">
+            {/* Title + Rating */}
             <div className="flex flex-col gap-4 pb-6 border-b border-text2-color">
               <h3 className="font-semibold text-2xl text-text2-color">
-                {data?.title}
+                {product.title}
               </h3>
               <div className="flex flex-row items-center gap-2.5">
-                <Star rating={data?.rating} />
+                <Star rating={product.rating} />
                 <span className="text-gray-600 text-[14px] font-poppins font-normal">
-                  ({data?.reviews?.length}Reviews)
+                  ({product.rating})
                 </span>
                 <div className="h-[14px] border border-gray-600"></div>
                 <div
                   className={`${
-                    data?.stock > 0 ? "text-Button1_color" : "text-red-500"
-                  }  text-[14px] font-normal font-poppins`}
+                    product.stock > 0 ? "text-Button1_color" : "text-red-500"
+                  } text-[14px] font-normal font-poppins`}
                 >
-                  {data?.stock > 0 ? "In Stock" : "Out Of Stock"}
+                  {product.stock > 0 ? "In Stock" : "Out Of Stock"}
                 </div>
               </div>
               <p className="font-normal text-2xl text-text2-color">
                 $
                 {calculateDiscountPrice(
-                  data?.price,
-                  data?.discountPercentage,
+                  product.price,
+                  product.discountPercentage,
                   2
                 )}
               </p>
-              <p className="mt-2">{data?.description}</p>
+              <p className="mt-2">{product.description}</p>
             </div>
-            {/*  color and size  */}
 
+            {/* Color & Size */}
             <div className="flex flex-col gap-y-6">
-              {/* color */}
-              <div className="flex flex-row gap-x-6 items-center ">
+              {/* Colors (dummy, static) */}
+              <div className="flex flex-row gap-x-6 items-center">
                 <h3 className="font-inter font-normal text-xl text-black">
                   Colors:
                 </h3>
                 <div className="flex gap-2.5 flex-row items-center cursor-pointer">
-                  {/* color 1 */}
-                  <div className="border-3 rounded-full">
-                    <div className="w-[24px] h-[24px] bg-HoverButton2_color rounded-full border-white border-4"></div>
-                  </div>
-                  {/* color 1 */}
-                  {/* color 2 */}
-                  <div className="rounded-full cursor-pointer">
-                    <div className="w-[24px] h-[24px] bg-red-400 rounded-full "></div>
-                  </div>
-                  {/* color 2 */}
+                  <div className="w-[24px] h-[24px] bg-blue-500 rounded-full border-2 border-white"></div>
+                  <div className="w-[24px] h-[24px] bg-red-400 rounded-full border-2 border-white"></div>
                 </div>
               </div>
-              {/* color */}
-              {/* size */}
-              <div className=" flex flex-row gap-x-6 items-center">
+
+              {/* Sizes */}
+              <div className="flex flex-row gap-x-6 items-center">
                 <h3 className="font-normal font-inter text-xl text-black">
                   Size:
                 </h3>
@@ -182,93 +149,78 @@ const ProductDetails = () => {
                   {sizeOfProduct.map((item) => (
                     <h3
                       key={item.id}
-                      className={`font-medium ${item.CSS} font-poppins text-[14px] hover:bg-gray-300 transition-all duration-300 cursor-pointer text-black  border border-black border-opacity-50 rounded`}
+                      className={`font-medium ${item.CSS} font-poppins text-[14px] hover:bg-gray-300 transition-all duration-300 cursor-pointer text-black border border-black border-opacity-50 rounded`}
                     >
                       {item.size}
                     </h3>
                   ))}
                 </div>
               </div>
-              {/* size */}
-              {/* quantity */}
+
+              {/* Quantity */}
               <div className="flex flex-row gap-4 items-center">
-                <div className="flex items-center border rounded ">
-                  {/* Minus Button */}
+                <div className="flex items-center border rounded">
                   <button
-                    onClick={() => setCount(count > 0 ? count - 1 : 0)}
-                    className="text-2xl px-3 py-3 border-r font-bold rounded-l-lg  hover:bg-gray-200 cursor-pointer"
+                    onClick={() => setCount(count > 1 ? count - 1 : 1)}
+                    className="text-2xl px-3 py-3 border-r font-bold hover:bg-gray-200 cursor-pointer"
                   >
                     <FiMinus />
                   </button>
-
-                  {/* Count Display */}
                   <div className="text-center px-[34px] py-2 text-[20px] font-medium font-poppins">
                     {count}
                   </div>
-
-                  {/* Plus Button */}
                   <button
                     onClick={() => setCount(count + 1)}
-                    className="text-2xl px-3 py-3 border-l font-bold rounded-r-lg hover:bg-gray-200 cursor-pointer"
+                    className="text-2xl px-3 py-3 border-l font-bold hover:bg-gray-200 cursor-pointer"
                   >
                     <FiPlus />
                   </button>
                 </div>
-                <div>
-                  <button
-                    className="font-medium font-poppins text-[16px] text-gray-50 px-12 py-3 rounded transition-all duration-300 bg-red-500 hover:bg-red-400
-                   cursor-pointer"
-                  >
-                    Buy Now
-                  </button>
-                </div>
+                <button className="font-medium font-poppins text-[16px] text-gray-50 px-12 py-3 rounded bg-red-500 hover:bg-red-400 cursor-pointer">
+                  Buy Now
+                </button>
                 <button className="px-3.5 py-3.5 rounded border text-[17px] cursor-pointer hover:bg-red-500 hover:text-white transition-all duration-300">
                   <FaRegHeart />
                 </button>
               </div>
-              {/* quantity */}
             </div>
-            {/*  color and size  */}
 
-            {/* description  */}
-
-            <div className="flex flex-col border rounded w-[420px] ">
-              <div className="  py-[20px] px-[16px] border-b cursor-pointer hover:bg-gray-100  ">
-                <div className="flex flex-row gap-4 transition-transform duration-500 ease-in-out hover:scale-103">
+            {/* Delivery / Return Info */}
+            <div className="flex flex-col border rounded w-[420px]">
+              <div className="py-[20px] px-[16px] border-b cursor-pointer hover:bg-gray-100">
+                <div className="flex flex-row gap-4">
                   <span className="text-[45px]">
                     <TbTruckDelivery />
                   </span>
                   <div className="flex flex-col gap-2">
-                    <h3 className="font-semibold font-poppins text-[16px] text-black">
-                      Free Delivery
-                    </h3>
-                    <h3 className="font-semibold font-poppins text-[12px] text-black">
+                    <h3 className="font-semibold text-[16px]">Free Delivery</h3>
+                    <h3 className="font-semibold text-[12px]">
                       Enter your postal code for Delivery Availability
                     </h3>
                   </div>
                 </div>
               </div>
-              <div className="  py-[20px] px-[16px] cursor-pointer hover:bg-gray-100 transition-all duration-300">
-                <div className="flex flex-row gap-4 transition-transform duration-500 ease-in-out hover:scale-103">
+              <div className="py-[20px] px-[16px] cursor-pointer hover:bg-gray-100">
+                <div className="flex flex-row gap-4">
                   <span className="text-[45px]">
                     <BsArrowRepeat />
                   </span>
                   <div className="flex flex-col gap-2">
-                    <h3 className="font-semibold font-poppins text-[16px] text-black">
+                    <h3 className="font-semibold text-[16px]">
                       Return Delivery
                     </h3>
-                    <h3 className="font-semibold font-poppins text-[12px] text-black">
+                    <h3 className="font-semibold text-[12px]">
                       Free 30 Days Delivery Returns. Details
                     </h3>
                   </div>
                 </div>
               </div>
             </div>
-            {/* description  */}
           </div>
         </div>
-        {/* product details */}
       </div>
+
+      {/* Related Products (dummy for now) */}
       <div className="py-[140px]">
         <Heading
           HeadingTitle={"Related Item"}
@@ -284,7 +236,7 @@ const ProductDetails = () => {
             spaceBetween={50}
             slidesPerView={4}
           >
-            {details?.products.map((item, index) => (
+            {relatedProduct?.products?.map((item, index) => (
               <div>
                 <SwiperSlide key={index}>
                   <ItemComponent
@@ -300,6 +252,12 @@ const ProductDetails = () => {
                     itemRating={item.rating}
                     IsDiscount={true}
                     isAddcrat={true}
+                    onClick={() =>
+                      navigate(`/product-details/${item.id}`, {
+                        state: { product: item },
+                        replace: true,
+                      })
+                    }
                   />
                 </SwiperSlide>
               </div>

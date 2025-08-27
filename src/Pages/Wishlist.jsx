@@ -1,13 +1,11 @@
 import React from "react";
-import ItemComponent from "../Component/CommonComponent/ItemComponent";
 import Picture1 from "../assets/Wishlist/Bag.png";
 import Picture2 from "../assets/Wishlist/Jacket.png";
 import Picture3 from "../assets/Wishlist/Joistik.png";
 import Picture4 from "../assets/Wishlist/Soundbox.png";
-import Heading from "../Component/CommonComponent/Heading";
 import BreadCrumb from "../Component/CommonComponent/BreadCrumb";
 
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Pagination, Scrollbar, A11y } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -106,7 +104,7 @@ const Wishlist = () => {
         </div>
 
         <div className="mt-[80px]">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center"> 
             <div className="flex gap-[16px] flex-row items-center">
               <div className="w-[20px] h-[40px] bg-Secondary2_color rounded "></div>
               <h3 className="font-normal font-poppins text-[20px] text-black">
@@ -150,4 +148,5 @@ const Wishlist = () => {
   );
 };
 
-export default Wishlist;
+export default React.memo(Wishlist);
+ 

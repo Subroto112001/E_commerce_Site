@@ -4,7 +4,7 @@ import Heading from "../../CommonComponent/Heading";
 import ItemComponent from "../../CommonComponent/ItemComponent";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
-import {calculateDiscountPrice} from "../../../Utils/Calculation"
+import { calculateDiscountPrice } from "../../../Utils/Calculation";
 import Slider from "react-slick";
 import { useGetProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
 
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingComponent from "../../CommonComponent/LoadingComponent";
 
 const FlashPart = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { data, error, isLoading } = useGetProductQuery();
 
   const NextArrow = (props) => {
@@ -51,9 +51,9 @@ const FlashPart = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-   const handleViewAllProduct = () => {
-     navigate("/product");
-   };
+  const handleViewAllProduct = () => {
+    navigate("/product");
+  };
 
   return (
     <div className="container  ">
@@ -72,7 +72,7 @@ const FlashPart = () => {
               {data?.products.map((item) => (
                 <div>
                   {isLoading ? (
-                    <LoadingComponent/>
+                    <LoadingComponent />
                   ) : (
                     <ItemComponent
                       itemName={item.title}
@@ -87,6 +87,11 @@ const FlashPart = () => {
                       itemRating={item?.rating}
                       IsDiscount={true}
                       isAddcrat={true}
+                      onClick={() =>
+                        navigate(`/product-details/${item.id}`, {
+                          state: { product: item }, 
+                        })
+                      }
                     />
                   )}
                 </div>

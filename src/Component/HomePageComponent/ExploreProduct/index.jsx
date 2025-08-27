@@ -89,6 +89,11 @@ const ExploreProduct = () => {
                       itemRating={item?.rating}
                       IsDiscount={true}
                       isAddcrat={true}
+                      onClick={() =>
+                        navigate(`/product-details/${item.id}`, {
+                          state: { product: item },
+                        })
+                      }
                     />
                   )}
                 </div>

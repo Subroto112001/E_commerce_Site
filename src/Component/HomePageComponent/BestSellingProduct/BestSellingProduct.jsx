@@ -12,8 +12,9 @@ import Slider from "react-slick";
 import SkeletonCard from "../../Skeliton/Skeliton";
 import { GrFormPrevious } from "react-icons/gr";
 import { MdOutlineNavigateNext } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 const BestSellingProduct = () => {
- 
+  const navigate = useNavigate();
    
    const settings = {
      dots: false,
@@ -62,6 +63,11 @@ const BestSellingProduct = () => {
                       itemRating={item?.rating}
                       IsDiscount={true}
                       isAddcrat={true}
+                      onClick={() =>
+                        navigate(`/product-details/${item.id}`, {
+                          state: { product: item },
+                        })
+                      }
                     />
                   )}
                 </div>
