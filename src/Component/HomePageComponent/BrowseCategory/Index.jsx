@@ -93,8 +93,6 @@ const BrowseCategroy = () => {
       },
   ];
   
-
-  console.log(data);
   
   return (
     <div className="container mx-auto">

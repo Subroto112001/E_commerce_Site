@@ -26,9 +26,9 @@ const ProductPageLeftside = () => {
           </ul>
         ) : (
           <ul className="flex flex-col gap-[16px]  ">
-            {data?.map((item) => {
+            {data?.map((item, index) => {
               return (
-                <li className="flex items-center text-[16px] p-1 font-normal font-poppins text-black_color transition-all hover:bg-gray-200 hover:translate-1 capitalize  cursor-pointer">
+                <li key={index} className="flex items-center text-[16px] p-1 font-normal font-poppins text-black_color transition-all hover:bg-gray-200 hover:translate-1 capitalize  cursor-pointer">
                   {item}
                 </li>
               );

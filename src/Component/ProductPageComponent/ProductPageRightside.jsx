@@ -81,32 +81,33 @@ const ProductPageRightside = () => {
             ))
           : data?.products
               ?.slice(page * 9 - 9, page * pagePerShow)
-              .map((item) => (
-                <ProductComponent
-                  itemName={item.title}
-                  itemPicture={item.images[0]}
-                  itemDiscount={item.discountPercentage}
-                  itemPrice={calculateDiscountPrice(
-                    item.price,
-                    item.discountPercentage,
-                    2
-                  )}
-                  itemPrevpRICE={item.price}
-                  itemRating={item?.rating}
-                  IsDiscount={true}
-                  isAddcrat={false}
-                 
-                />
+              .map((item, index) => (
+                <div key={index}>
+                  <ProductComponent
+                    itemName={item.title}
+                    itemPicture={item.images[0]}
+                    itemDiscount={item.discountPercentage}
+                    itemPrice={calculateDiscountPrice(
+                      item.price,
+                      item.discountPercentage,
+                      2
+                    )}
+                    itemPrevpRICE={item.price}
+                    itemRating={item?.rating}
+                    IsDiscount={true}
+                    isAddcrat={false}
+                  />
+                </div>
               ))}
       </div>
       {/* pagination */}
 
       <div className="flex justify-center items-center mt-[40px]">
-        <ul class="inline-flex -space-x-px text-base h-10">
+        <ul className="inline-flex -space-x-px text-base h-10">
           <li>
             <span
               onClick={handlePrev}
-              class={`flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-pointer  ${
+              className={`flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-pointer  ${
                 page === 1
                   ? "bg-gray-200 text-gray-400"
                   : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
@@ -117,10 +118,10 @@ const ProductPageRightside = () => {
           </li>
 
           {[...new Array(totalpage)].map((_, index) => (
-            <li>
+            <li key={index}>
               <span
                 href="#"
-                class={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300  cursor-pointer ${
+                className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300  cursor-pointer ${
                   page == index + 1
                     ? "bg-blue-500 text-gray-500"
                     : " text-gray-500 hover:bg-gray-100 hover:text-gray-700"
@@ -135,7 +136,7 @@ const ProductPageRightside = () => {
           <li>
             <span
               onClick={handleNext}
-              class={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg cursor-pointer  ${
+              className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg cursor-pointer  ${
                 page === totalpage
                   ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                   : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"

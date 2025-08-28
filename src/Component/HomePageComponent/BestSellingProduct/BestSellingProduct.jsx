@@ -6,13 +6,14 @@ import table from "../../../assets/Bestselling/table.png";
 import Bag from "../../../assets/Bestselling/Bag.png";
 
 import ItemComponent from "../../CommonComponent/ItemComponent";
-import { useBestSellingProductQuery } from "../../../Features/AllSlice/Api/ProductApi";
+import { useBestSellingProductQuery, useGetProductByCategoryQuery } from "../../../Features/AllSlice/Api/ProductApi";
 import { calculateDiscountPrice } from "../../../Utils/Calculation";
 import Slider from "react-slick";
 import SkeletonCard from "../../Skeliton/Skeliton";
 import { GrFormPrevious } from "react-icons/gr";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useCategoryByProduct } from "../../../ContextApi/CategoryProduct";
 const BestSellingProduct = () => {
   const navigate = useNavigate();
    
@@ -25,8 +26,10 @@ const BestSellingProduct = () => {
      arrows: false,
     
    };
-
-  const { data, error, isLoading } = useBestSellingProductQuery();
+ const { details, error, isLoading } = useCategoryByProduct("smartphones");
+  
+  
+ ;
   
   
   
@@ -45,7 +48,7 @@ const BestSellingProduct = () => {
         <div className="relative">
           <div className="slider-container ">
             <Slider {...settings}>
-              {data?.products.map((item) => (
+              {details?.products.map((item) => (
                 <div>
                   {isLoading ? (
                     <SkeletonCard />
@@ -75,7 +78,14 @@ const BestSellingProduct = () => {
             </Slider>
           </div>
           <div className="flex justify-center items-center mt-[60px]">
-            <button className="bg-Secondary2_color px-[48px] cursor-pointer rounded py-[16px] text-[16px] text-white font-medium font-poppins">
+            <button
+              className="bg-Secondary2_color px-[48px] cursor-pointer rounded py-[16px] text-[16px] text-white font-medium font-poppins"
+              onClick={() =>
+                navigate(`/product`, {
+                  state: { product: data?.products },
+                })
+              }
+            >
               View All Products
             </button>
           </div>
