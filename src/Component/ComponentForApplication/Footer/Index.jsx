@@ -1,7 +1,7 @@
 import React from "react";
 import { CiPaperplane, CiTwitter } from "react-icons/ci";
-import QrCode from "../../../assets/Footer/QrCode.png"
-import PlayStore from "../../../assets/Footer/PlayStore.png"
+import QrCode from "../../../assets/Footer/QrCode.png";
+import PlayStore from "../../../assets/Footer/PlayStore.png";
 import AppleStore from "../../../assets/Footer/AppleStore.png";
 import { RiFacebookLine } from "react-icons/ri";
 import { IoLogoInstagram } from "react-icons/io";
@@ -41,13 +41,13 @@ export const Footer = () => {
               </h3>
               <div className="flex flex-col gap-[16px]">
                 <p className="text-[16px] font-normal font-poppins text-white max-w-[175px]">
-                  111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.
+                  Dhanmondi- 15, Dhaka, DH 1209, Bangladesh.
                 </p>
                 <p className="text-[16px] font-normal font-poppins text-white ">
-                  exclusive@gmail.com
+                  barmanntech@gmail.com
                 </p>
                 <p className="text-[16px] font-normal font-poppins text-white ">
-                  +88015-88888-9999
+                  +8801764298643
                 </p>
               </div>
             </div>
@@ -158,7 +158,7 @@ export const Footer = () => {
       <div className="flex justify-center items-center mt-[76px]  border-t border-[#3D3D3D]">
         <h3 className="text-[#3D3D3D] text-[16px] font-poppins font-normal flex justify-center items-center gap-[6px] pt-4">
           <FaRegCopyright />
-          Copyright Rimel 2022. All right reserved
+          Copyright Barman & Code 2025. All right reserved
         </h3>
       </div>
     </div>
