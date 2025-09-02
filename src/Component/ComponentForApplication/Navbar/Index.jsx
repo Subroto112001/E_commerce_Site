@@ -1,8 +1,8 @@
-import React, { use, useEffect, useRef, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, ServerRouter, useLocation, useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import {
-  MdLocalMall,
+ 
   MdOutlineCancel,
   MdOutlineFavoriteBorder,
   MdOutlineLocalMall,
@@ -11,6 +11,8 @@ import {
 import { FaRegStar, FaUserAlt } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
+import { RiMenu3Line } from "react-icons/ri";
+import { IoIosSearch } from "react-icons/io";
 export const Navbar = () => {
   const [userAccount, setUserAccount] = useState(false);
   const [wishlist, setWishlist] = useState(false);
@@ -63,6 +65,14 @@ const [useraccount, setuseraccount] =useState(false);
     setuseraccount(!useraccount);
   }
 
+const [search, setSearch] = useState(false)
+
+  const handleSerachbar = () => {
+    setSearch(!search);
+  }
+
+
+
   return (
     <div className="container bg-white border-b-gray-500 border-b-[1px] ">
       <div className="flex justify-between items-center pt-[47px] pb-[23px]  ">
@@ -72,7 +82,7 @@ const [useraccount, setuseraccount] =useState(false);
           </h3>
         </div>
         {/* nav item is here */}
-        <div>
+        <div className="hidden md:block">
           <ul className=" flex items-center gap-[48px]">
             {navItem.map((item) => {
               return (
@@ -98,18 +108,25 @@ const [useraccount, setuseraccount] =useState(false);
           </ul>
         </div>
         {/* nav item is here */}
-        <div className="flex gap-[24px] justify-center items-center">
-          <div className=" relative">
+        <div
+          className={`${
+            search ? "block" : "hidden"
+          } sm:flex gap-[24px] justify-center items-center`}
+        >
+          <div className={`${search ? "block" : "hidden"} sm:block relative `}>
             <input
               type="search"
               placeholder="What are you looking for?"
-              className="bg-secondary_color py-[10px] pl-[20px] pr-[70px] w-[300px] rounded  text=[12px] font-normal font-poppins"
+              className="bg-secondary_color py-[10px] pl-[20px] pr-[70px] w-[180px] sm:w-[300px] rounded  text-[12px] font-normal font-poppins"
             />
-            <span className="absolute top-[30%] right-[5%] text-[24px]">
+            <span
+              className="absolute top-[50%]  -translate-y-1/2 right-3.5  sm:top-[50%] sm:right-[5%] text-[24px]"
+              onClick={handleSerachbar}
+            >
               <CiSearch />
             </span>
           </div>
-          <div className="flex gap-[7px] justify-center items-center relative">
+          <div className=" hidden  sm:flex gap-[7px] justify-center items-center relative">
             <span
               className={`text-[32px] cursor-pointer ${
                 location.pathname === "/wishlist" ? "text-red-500" : ""
@@ -173,6 +190,19 @@ const [useraccount, setuseraccount] =useState(false);
               </div>
             </div>
           )}
+        </div>
+        <div className="flex gap-2.5 ">
+          <span
+            className={`text-2xl sm:hidden p-1 rounded duration-300 transition-all cursor-pointer hover:bg-gray-300 ${
+              search ? "hidden" : "block"
+            }`}
+            onClick={handleSerachbar}
+          >
+            <IoIosSearch />
+          </span>
+          <span className="text-2xl sm:hidden p-1 rounded duration-300 transition-all cursor-pointer hover:bg-gray-300">
+            <RiMenu3Line />
+          </span>
         </div>
       </div>
     </div>

@@ -59,6 +59,21 @@
   padding-right: 135px;
   margin: auto;
 }
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+/* Small Mobile */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
 
 @layer components {
   .menuUnderLineBar {
