@@ -1,3 +1,9 @@
+import { RiHome8Fill, RiMoneyDollarCircleLine } from "react-icons/ri";
+import { LiaHomeSolid } from "react-icons/lia";
+import { IoGift } from "react-icons/io5";
+import { GrMoney } from "react-icons/gr";
+
+
 export const sizeOfProduct = [
   {
     id: 1,
@@ -25,3 +31,33 @@ export const sizeOfProduct = [
     CSS: "px-[8px] py-[6px]",
   },
 ];
+
+
+
+// about provider
+ export const aboutitem = [
+   {
+     id: 1,
+     icon: <LiaHomeSolid />,
+     name: "10.5K",
+     desc: "Sallers active our site",
+   },
+   {
+     id: 2,
+     icon: <RiMoneyDollarCircleLine />,
+     name: "33k",
+     desc: "Monthly Product Sale",
+   },
+   {
+     id: 3,
+     icon: <IoGift />,
+     name: "45.5k",
+     desc: "Customer active in our site",
+   },
+   {
+     id: 4,
+     icon: <GrMoney />,
+     name: "25K",
+     desc: "Anual gross sale in our site",
+   },
+ ];
