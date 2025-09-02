@@ -2,12 +2,13 @@ import React from "react";
 import BreadCrumb from "../Component/CommonComponent/BreadCrumb";
 import OurStory from "../assets/About/ourStory.png";
 
-import { aboutitem } from "../Helpers/ItemProvider";
+import { aboutitem, deliveryItem } from "../Helpers/ItemProvider";
 import Picture1 from "../assets/About/tom.png"
 import Picture2 from "../assets/About/ella.png"
 import Picture3 from "../assets/About/will.png"
 import { CiInstagram, CiLinkedin, CiTwitter } from "react-icons/ci";
 const About = () => {
+  deliveryItem;
   const aboutPerson = [
     {
       id: 1,
@@ -88,14 +89,18 @@ const About = () => {
           {aboutPerson.map((item) => (
             <div className="flex flex-col gap-8" key={item.id}>
               <div className="w-[370px] h-[430px]">
-                <img src={item.image} alt={Picture1} className="w-full h-full" />
+                <img
+                  src={item.image}
+                  alt={Picture1}
+                  className="w-full h-full"
+                />
               </div>
               <div className=" flex flex-col gap-2">
                 <h3 className=" font-medium font-inter text-[32px]">
                   {item.name}
                 </h3>
                 <p className="font-normal font-poppins text-[16px] text-black italic">
-                {item.desc}
+                  {item.desc}
                 </p>
               </div>
               <div className="flex flex-row gap-2 items-center">
@@ -113,6 +118,25 @@ const About = () => {
           ))}
         </div>
         {/* chairman card */}
+        {/* dellivery card */}
+        <div className="flex flex-row gap-[88px] items-center justify-center pt-[140px] pb-[140px]">
+          {deliveryItem.map((item) => (
+            <div className=" flex justify-center flex-col items-center">
+              <div className="bg-black text-white text-[30px] w-[80px] h-[80px] rounded-full flex justify-center items-center border-[11px] border-[#C1C0C1] ">
+                {item.icon}
+              </div>
+              <div className="flex flex-col justify-center items-center mt-[24px] gap-2">
+                <h3 className="text-[20px] font-semibold font-poppins text-black ">
+                  {item.heading}
+                </h3>
+                <h3 className="text-[14px] font-normal font-poppins text-black ">
+                  {item.subHeading}
+                </h3>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* dellivery card */}
       </div>
     </div>
   );

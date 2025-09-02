@@ -2,6 +2,9 @@ import { RiHome8Fill, RiMoneyDollarCircleLine } from "react-icons/ri";
 import { LiaHomeSolid } from "react-icons/lia";
 import { IoGift } from "react-icons/io5";
 import { GrMoney } from "react-icons/gr";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { BiSupport } from "react-icons/bi";
+import { MdOutlineSecurity } from "react-icons/md";
 
 
 export const sizeOfProduct = [
@@ -60,4 +63,26 @@ export const sizeOfProduct = [
      name: "25K",
      desc: "Anual gross sale in our site",
    },
- ];
+];
+ 
+// about delivery
+export const deliveryItem = [
+    {
+      id: 1,
+      icon: <CiDeliveryTruck />,
+      heading: "FREE ABD FAST DELIVERY",
+      subHeading: "Free delivery for all orders over $140",
+    },
+    {
+      id: 2,
+      icon: <BiSupport />,
+      heading: "24/7 CUSTOMER SERVICE",
+      subHeading: "Friendly 24/7 customer support",
+    },
+    {
+      id: 3,
+      icon: <MdOutlineSecurity />,
+      heading: "MONEY BACK GUARANTEE",
+      subHeading: "We reurn money within 30 days",
+    },
+  ];
