@@ -121,7 +121,7 @@ const About = () => {
         {/* dellivery card */}
         <div className="flex flex-row gap-[88px] items-center justify-center pt-[140px] pb-[140px]">
           {deliveryItem.map((item) => (
-            <div className=" flex justify-center flex-col items-center">
+            <div key={item.id} className=" flex justify-center flex-col items-center">
               <div className="bg-black text-white text-[30px] w-[80px] h-[80px] rounded-full flex justify-center items-center border-[11px] border-[#C1C0C1] ">
                 {item.icon}
               </div>

@@ -1,29 +1,7 @@
 import React from 'react'
-import { BiSupport } from 'react-icons/bi';
-import { CiDeliveryTruck } from 'react-icons/ci';
-import { MdOutlineSecurity } from 'react-icons/md';
+import { deliveryItem } from '../../../Helpers/ItemProvider';
 
-const Delivery = () => {
-  const deliveryItem = [
-    {
-      id: 1,
-      icon: <CiDeliveryTruck />,
-      heading: "FREE ABD FAST DELIVERY",
-      subHeading: "Free delivery for all orders over $140",
-    },
-    {
-      id: 2,
-      icon: <BiSupport />,
-      heading: "24/7 CUSTOMER SERVICE",
-      subHeading: "Friendly 24/7 customer support",
-    },
-    {
-      id: 3,
-      icon: <MdOutlineSecurity />,
-      heading: "MONEY BACK GUARANTEE",
-      subHeading: "We reurn money within 30 days",
-    },
-  ];
+const Delivery = () => { 
   return (
     <div className="container">
       <div className="flex flex-row gap-[88px] items-center justify-center pt-[140px] pb-[140px]">

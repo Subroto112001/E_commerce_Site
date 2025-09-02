@@ -17,6 +17,7 @@ import BreadCrumb from "./Component/CommonComponent/BreadCrumb";
 import ProductPage from "./Pages/ProductPage";
 import ProductDetails from "./Pages/ProductDetails";
 import { ProductProvider } from "./ContextApi/Contextapi";
+import NotFound from "./Pages/404Page";
 
 const App = () => {
   
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/product" element={<ProductPage />} />
             <Route path="/product-details/:id" element={<ProductDetails />} />
+            <Route path="/error" element={<NotFound />} />
 
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
