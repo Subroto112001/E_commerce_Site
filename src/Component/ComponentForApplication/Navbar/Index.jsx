@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { NavLink, ServerRouter, useLocation, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  ServerRouter,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import {
- 
   MdOutlineCancel,
   MdOutlineFavoriteBorder,
   MdOutlineLocalMall,
@@ -19,7 +23,7 @@ export const Navbar = () => {
   const [cart, setcart] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-const [useraccount, setuseraccount] =useState(false);
+
   const navItem = [
     {
       id: 1,
@@ -63,15 +67,18 @@ const [useraccount, setuseraccount] =useState(false);
   };
   const handleMyAccount = () => {
     setuseraccount(!useraccount);
-  }
+  };
 
-const [search, setSearch] = useState(false)
+  const [search, setSearch] = useState(false);
 
   const handleSerachbar = () => {
     setSearch(!search);
-  }
+  };
 
-
+  const [navicon, setnavicon] = useState(false);
+  const handleNavItem = () => {
+    setnavicon(!navicon);
+  };
 
   return (
     <div className="container bg-white border-b-gray-500 border-b-[1px] ">
@@ -82,13 +89,16 @@ const [search, setSearch] = useState(false)
           </h3>
         </div>
         {/* nav item is here */}
-        <div className="hidden md:block">
-          <ul className=" flex items-center gap-[48px]">
+        <div className={`${navicon ? "block" : "hidden"} relative md:block  `}>
+          <ul
+            className={` flex flex-col sm:flex-row items-center gap-[10px] p-5 sm:p-0 rounded sm:gap-[48px] absolute right-[-215px] top-12 sm:static
+  z-10  bg-gray-300 sm:bg-transparent`}
+          >
             {navItem.map((item) => {
               return (
                 <li
                   key={item.id}
-                  className="font-normal text-[16px] font-poppins capitalize menuUnderLineBar"
+                  className="font-normal text-[16px] font-poppins capitalize menuUnderLineBar "
                 >
                   <NavLink
                     to={item.path}
@@ -108,27 +118,27 @@ const [search, setSearch] = useState(false)
           </ul>
         </div>
         {/* nav item is here */}
-        <div
-          className={`${
-            search ? "block" : "hidden"
-          } sm:flex gap-[24px] justify-center items-center`}
-        >
+        <div className={`flex gap-[24px] justify-end items-end`}>
           <div className={`${search ? "block" : "hidden"} sm:block relative `}>
             <input
               type="search"
               placeholder="What are you looking for?"
-              className="bg-secondary_color py-[10px] pl-[20px] pr-[70px] w-[180px] sm:w-[300px] rounded  text-[12px] font-normal font-poppins"
+              className="bg-secondary_color py-[8px] sm:py-[10px] pl-[20px] pr-[70px] w-[180px] sm:w-[300px] rounded  text-[12px] font-normal font-poppins"
             />
             <span
-              className="absolute top-[50%]  -translate-y-1/2 right-3.5  sm:top-[50%] sm:right-[5%] text-[24px]"
+              className="absolute top-[50%]  -translate-y-1/2 right-3.5  sm:top-[50%] sm:right-[5%] text-[24px] cursor-pointer"
               onClick={handleSerachbar}
             >
               <CiSearch />
             </span>
           </div>
-          <div className=" hidden  sm:flex gap-[7px] justify-center items-center relative">
+          <div
+            className={`${
+              search ? "hidden" : "flex"
+            } sm:flex  gap-[7px] justify-center items-center relative`}
+          >
             <span
-              className={`text-[32px] cursor-pointer ${
+              className={` text-[28px] cursor-pointer ${
                 location.pathname === "/wishlist" ? "text-red-500" : ""
               }`}
               onClick={HandleWishlist}
@@ -137,7 +147,7 @@ const [search, setSearch] = useState(false)
             </span>
 
             <span
-              className={`text-[32px] cursor-pointer ${
+              className={`text-[28px] cursor-pointer ${
                 location.pathname === "/cart" ? "text-red-500" : ""
               }`}
               onClick={HandleCart}
@@ -148,7 +158,7 @@ const [search, setSearch] = useState(false)
             {/* user jsx */}
 
             <span
-              className={`text-[30px] p-1 ${
+              className={`text-[28px] p-1 ${
                 location.pathname === "/account"
                   ? "bg-red-400 rounded-full text-white"
                   : ""
@@ -200,7 +210,10 @@ const [search, setSearch] = useState(false)
           >
             <IoIosSearch />
           </span>
-          <span className="text-2xl sm:hidden p-1 rounded duration-300 transition-all cursor-pointer hover:bg-gray-300">
+          <span
+            className="text-2xl sm:hidden p-1 rounded duration-300 transition-all cursor-pointer hover:bg-gray-300"
+            onClick={handleNavItem}
+          >
             <RiMenu3Line />
           </span>
         </div>
