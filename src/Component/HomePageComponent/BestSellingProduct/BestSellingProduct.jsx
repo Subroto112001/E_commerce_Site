@@ -21,10 +21,9 @@ const BestSellingProduct = () => {
      dots: false,
      infinite: true,
      speed: 500,
-     slidesToShow: 4,
+     slidesToShow: window.innerWidth < 640 ? 2 : 4,
      slidesToScroll: 1,
      arrows: false,
-    
    };
  const { details, error, isLoading } = useCategoryByProduct("smartphones");
   

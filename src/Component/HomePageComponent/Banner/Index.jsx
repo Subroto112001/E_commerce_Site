@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaApple } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { TbMathGreater } from "react-icons/tb";
@@ -11,6 +11,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Banner = () => {
+
+
+  const [category, setCategory] = useState(true);
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -110,10 +114,31 @@ const Banner = () => {
 
   return (
     <div className="container">
-      <div className="flex ">
-        <div className="left w-[20%] border-r-[1px] border-gray-500">
+      <div className="flex flex-col md:flex-row mt-5">
+        <div
+          className={` ${
+            category ? "flex" : "hidden"
+          } md:hidden flex-row gap-2 items-center text-black font-semibold text-xl`}
+          onClick={() => setCategory(!category)}
+        >
+          <h3>Category</h3>
+          <span>
+            <TbMathGreater />
+          </span>
+        </div>
+        <div
+          className={`${
+            category ? "hidden" : "block"
+          }  md:block left w-[50%] md:w-[20%] border-r-[1px] border-gray-500`}
+        >
           <div>
-            <ul className="flex flex-col gap-[16px] pt-[40px] pr-[16px] ">
+            <h3
+              className="text-right md:hidden text-2xl mr-4 text-red-500 font-semibold "
+              onClick={() => setCategory(!category)}
+            >
+              X
+            </h3>
+            <ul className="flex flex-col gap-[16px] pt-3 md:pt-10 pr-[16px] ">
               {banneritem.map((item) => {
                 return (
                   <li
@@ -130,24 +155,28 @@ const Banner = () => {
             </ul>
           </div>
         </div>
-        <div className="right w-[80%] pt-[40px] pl-[45px] ">
+        <div
+          className={`${
+            category ? "block" : "hidden"
+          } right w-[100%] md:w-[80%] pt-5 md:pt-[40px] md:pl-[45px] `}
+        >
           <div className="slider-container">
             <Slider {...settings}>
               {bannerPictureItem.map((item) => (
                 <div key={item.id}>
-                  <div className="flex flex-row bg-black text-white">
-                    <div className="left flex flex-col gap-[20px] pt-[58px] pl-[64px] pb-[47px]">
+                  <div className="flex items-center flex-row bg-black text-white">
+                    <div className="left flex flex-col gap-[20px] pt-6 md:pt-[58px] pl-4 md:pl-[64px] pb-[47px]">
                       <div className="flex flex-row gap-[24px]  items-center">
                         <span className="text-[32px]">
                           <FaApple />
                         </span>
-                        <h3 className="text-[16px] font-normal font-poppins">
+                        <h3 className="text-[14px] md:text-[16px] font-normal font-poppins">
                           iPhone 14 Series
                         </h3>
                       </div>
 
                       <div>
-                        <h3 className="text-[48px] font-semibold font-inter w-[294px] ">
+                        <h3 className="text-[28px] md:text-[48px] font-semibold font-inter w-[170px] md:w-[294px] ">
                           Up to 10% off Voucher
                         </h3>
                       </div>
@@ -170,7 +199,7 @@ const Banner = () => {
                         <img
                           src={item.picture}
                           alt={item.picture}
-                          className="object-cover w-full h-full"
+                          className="object-cover w-[300px] md:w-full h-[150px] md:h-full"
                         />
                       </picture>
                     </div>

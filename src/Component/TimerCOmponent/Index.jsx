@@ -47,22 +47,22 @@ const CountdownTimer = () => {
   return (
     <div className="flex gap-4 text-center">
       <div>
-        <div className="text-3xl font-bold">{time.days}</div>
+        <div className="text-xl md:text-3xl font-bold">{time.days}</div>
         <div className="text-sm">Days</div>
       </div>
-      <div className="text-3xl text-red-400">:</div>
+      <div className="text-xl md:text-3xl text-red-400">:</div>
       <div>
-        <div className="text-3xl font-bold">{time.hours}</div>
+        <div className="text-xl md:text-3xl font-bold">{time.hours}</div>
         <div className="text-sm">Hours</div>
       </div>
-      <div className="text-3xl text-red-400">:</div>
+      <div className="text-xl md:text-3xl text-red-400">:</div>
       <div>
-        <div className="text-3xl font-bold">{time.minutes}</div>
+        <div className="text-xl md:text-3xl font-bold">{time.minutes}</div>
         <div className="text-sm">Minutes</div>
       </div>
-      <div className="text-3xl text-red-400">:</div>
+      <div className="text-xl md:text-3xl text-red-400">:</div>
       <div>
-        <div className="text-3xl font-bold">{time.seconds}</div>
+        <div className="text-xl md:text-3xl font-bold">{time.seconds}</div>
         <div className="text-sm">Seconds</div>
       </div>
     </div>

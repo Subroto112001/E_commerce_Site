@@ -17,6 +17,7 @@ import { FiUser } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { RiMenu3Line } from "react-icons/ri";
 import { IoIosSearch } from "react-icons/io";
+import { RxCrossCircled } from "react-icons/rx";
 export const Navbar = () => {
   const [userAccount, setUserAccount] = useState(false);
   const [wishlist, setWishlist] = useState(false);
@@ -78,6 +79,7 @@ export const Navbar = () => {
   const [navicon, setnavicon] = useState(false);
   const handleNavItem = () => {
     setnavicon(!navicon);
+    console.log(navicon);
   };
 
   return (
@@ -89,11 +91,8 @@ export const Navbar = () => {
           </h3>
         </div>
         {/* nav item is here */}
-        <div className={`${navicon ? "block" : "hidden"} relative md:block  `}>
-          <ul
-            className={` flex flex-col sm:flex-row items-center gap-[10px] p-5 sm:p-0 rounded sm:gap-[48px] absolute right-[-215px] top-12 sm:static
-  z-10  bg-gray-300 sm:bg-transparent`}
-          >
+        <div className={`hidden relative md:block `}>
+          <ul className={` flex flex-row items-center  p-5 gap-[48px]`}>
             {navItem.map((item) => {
               return (
                 <li
@@ -201,7 +200,9 @@ export const Navbar = () => {
             </div>
           )}
         </div>
-        <div className="flex gap-2.5 ">
+        {/* mobile menu toggler */}
+
+        <div className=" flex md:hidden gap-2.5 ">
           <span
             className={`text-2xl sm:hidden p-1 rounded duration-300 transition-all cursor-pointer hover:bg-gray-300 ${
               search ? "hidden" : "block"
@@ -210,13 +211,44 @@ export const Navbar = () => {
           >
             <IoIosSearch />
           </span>
-          <span
-            className="text-2xl sm:hidden p-1 rounded duration-300 transition-all cursor-pointer hover:bg-gray-300"
-            onClick={handleNavItem}
-          >
-            <RiMenu3Line />
-          </span>
+          <div className="relative w-[30px] h-[30px] flex items-center justify-center">
+            <span
+              className="text-2xl md:hidden p-1 rounded duration-300 transition-all cursor-pointer hover:bg-gray-300"
+              onClick={handleNavItem}
+            >
+              {navicon ? <RxCrossCircled /> : <RiMenu3Line />}
+            </span>
+            <div className={`${navicon ? "block" : "hidden"} relative`}>
+              <ul
+                className={` flex flex-col items-center gap-[10px] p-5 rounded absolute right-[4px] top-5 
+  z-10  bg-gray-300`}
+              >
+                {navItem.map((item) => {
+                  return (
+                    <li
+                      key={item.id}
+                      className="font-normal text-[16px] font-poppins capitalize menuUnderLineBar "
+                    >
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive, isPending }) =>
+                          isPending
+                            ? "text-black"
+                            : isActive
+                            ? " text-red-600"
+                            : "text-black"
+                        }
+                      >
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
+        {/* mobile menu toggler */}
       </div>
     </div>
   );

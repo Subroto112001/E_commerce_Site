@@ -23,7 +23,7 @@ const BrowseCategroy = () => {
     const { onClick } = props;
     return (
       <div
-        className="absolute top-[-60px] right-0 z-10 cursor-pointer bg-black text-white p-2 rounded-full"
+        className="absolute bottom-[-50px] md:top-[-60px] right-[45%]  md:right-0 z-10 cursor-pointer bg-black text-white p-2 rounded-full"
         onClick={onClick}
       >
         <MdOutlineNavigateNext size={24} />
@@ -35,7 +35,7 @@ const BrowseCategroy = () => {
     const { onClick } = props;
     return (
       <div
-        className="absolute top-[-60px] right-[60px] z-10 cursor-pointer bg-black text-white p-2 rounded-full"
+        className="absolute bottom-[-50px] md:top-[-60px] right-[55%] md:right-[60px] z-10 cursor-pointer bg-black text-white p-2 rounded-full"
         onClick={onClick}
       >
         <GrFormPrevious size={24} />
@@ -46,7 +46,7 @@ const BrowseCategroy = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: window.innerWidth < 640 ? 2 : 6,
     slidesToScroll: 1,
     arrows: true,
     nextArrow: <NextArrow />,

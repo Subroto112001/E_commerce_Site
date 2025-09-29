@@ -22,7 +22,7 @@ const FlashPart = () => {
     const { onClick } = props;
     return (
       <div
-        className="absolute top-[-60px] right-0 z-10 cursor-pointer bg-black text-white p-2 rounded-full"
+        className="absolute top-[-80px] md:top-[-60px] right-[-10px] md:right-0 z-10 cursor-pointer bg-black text-white p-1.5 md:p-2 rounded-full"
         onClick={onClick}
       >
         <MdOutlineNavigateNext size={24} />
@@ -34,23 +34,26 @@ const FlashPart = () => {
     const { onClick } = props;
     return (
       <div
-        className="absolute top-[-60px] right-[60px] z-10 cursor-pointer bg-black text-white p-2 rounded-full"
+        className="absolute top-[-80px] md:top-[-60px] right-[35px] md:right-[60px] z-10 cursor-pointer bg-black text-white p-1.5 md:p-2 rounded-full"
         onClick={onClick}
       >
         <GrFormPrevious size={24} />
       </div>
     );
   };
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: window.innerWidth < 640 ? 2 : 4,
+ 
     slidesToScroll: 1,
     arrows: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
+  
   const handleViewAllProduct = () => {
     navigate("/product");
   };
@@ -65,7 +68,7 @@ const FlashPart = () => {
           isButton={false}
         />
       </div>
-      <div className="mt-[40px] border-b border-gray-400  pb-[70px]">
+      <div className="mt-[40px] border-b border-gray-400  pb-[70px] pl-[10px] md:pl-0">
         <div className="relative">
           <div className="slider-container ">
             <Slider {...settings}>

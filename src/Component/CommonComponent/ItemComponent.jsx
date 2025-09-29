@@ -17,7 +17,7 @@ const ItemComponent = ({
   return (
     <div onClick={onClick} className="cursor-pointer">
       <div className="mb-[20px]">
-        <div className="w-[270px] h-[270px] bg-secondary_color flex justify-center items-center relative group">
+        <div className="w-[170px] md:w-[270px] h-[170px] md:h-[270px] bg-secondary_color flex justify-center items-center relative group">
           <picture>
             <img src={itemPicture} alt={itemPicture} />
           </picture>
