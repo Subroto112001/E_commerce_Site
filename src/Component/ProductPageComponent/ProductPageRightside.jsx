@@ -5,6 +5,7 @@ import { calculateDiscountPrice } from "../../Utils/Calculation";
 import {
   useGetProductQuery,
   useGetProductByCategoryQuery,
+  useSearchProductsQuery,
 } from "../../Features/AllSlice/Api/ProductApi";
 import {
   selectCategory,
@@ -14,41 +15,70 @@ import {
 import ProductComponent from "../CommonComponent/ProductComponent";
 import LoadingComponent from "../CommonComponent/LoadingComponent";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const ProductPageRightside = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // Get category from URL or Redux
+  // Get search query and category from URL or Redux
+  const searchQuery = searchParams.get("search") || "";
   const categoryFromUrl = searchParams.get("category");
   const categoryFromRedux = useSelector(selectCategory);
   const selectedCategory = categoryFromUrl || categoryFromRedux;
   const priceRange = useSelector(selectPriceRange);
   const sortBy = useSelector(selectSortBy);
 
-  // Fetch all products or by category
+  // Fetch products based on search, category, or all
+  const { data: searchData, isLoading: isSearching } = useSearchProductsQuery(
+    searchQuery,
+    {
+      skip: searchQuery.length < 2,
+    },
+  );
+
   const { data: allProductsData, isLoading: isLoadingAll } = useGetProductQuery(
     undefined,
     {
-      skip: !!selectedCategory,
+      skip: !!selectedCategory || searchQuery.length >= 2,
     },
   );
+
   const { data: categoryProductsData, isLoading: isLoadingCategory } =
     useGetProductByCategoryQuery(selectedCategory, {
-      skip: !selectedCategory,
+      skip: !selectedCategory || searchQuery.length >= 2,
     });
 
-  const data = selectedCategory ? categoryProductsData : allProductsData;
-  const isLoading = selectedCategory ? isLoadingCategory : isLoadingAll;
+  // Determine which data to use based on search/category
+  const data =
+    searchQuery.length >= 2
+      ? searchData
+      : selectedCategory
+        ? categoryProductsData
+        : allProductsData;
+
+  const isLoading =
+    searchQuery.length >= 2
+      ? isSearching
+      : selectedCategory
+        ? isLoadingCategory
+        : isLoadingAll;
 
   const [page, setPage] = useState(1);
   const [pagePerShow, setPagePerShow] = useState(10);
 
-  // Reset page when category changes
+  // Reset page when category or search changes
   useEffect(() => {
     setPage(1);
-  }, [selectedCategory]);
+  }, [selectedCategory, searchQuery]);
+
+  // Function to clear search
+  const handleClearSearch = () => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete("search");
+    setSearchParams(newParams);
+  };
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
@@ -117,7 +147,21 @@ const ProductPageRightside = () => {
       {/* Top Bar: Sort/Show */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-y-3 mb-6 px-1 md:px-0">
         <div>
-          {selectedCategory && (
+          {searchQuery && (
+            <div className="flex items-center gap-2 mb-1">
+              <p className="text-sm font-medium text-Secondary2_color">
+                Search results for: "{searchQuery}"
+              </p>
+              <button
+                onClick={handleClearSearch}
+                className="text-gray-500 hover:text-Secondary2_color transition-colors"
+                title="Clear search"
+              >
+                <IoClose size={18} />
+              </button>
+            </div>
+          )}
+          {selectedCategory && !searchQuery && (
             <p className="text-sm font-medium text-Secondary2_color capitalize mb-1">
               Category: {selectedCategory.replace("-", " ")}
             </p>
@@ -157,9 +201,19 @@ const ProductPageRightside = () => {
           <h2 className="text-xl font-semibold font-poppins mb-4">
             No products found
           </h2>
-          <p className="text-gray-500 mb-8">
-            Try adjusting your filters or browse all products.
+          <p className="text-gray-500 mb-8 text-center">
+            {searchQuery
+              ? `No results for "${searchQuery}". Try a different search term.`
+              : "Try adjusting your filters or browse all products."}
           </p>
+          {searchQuery && (
+            <button
+              onClick={handleClearSearch}
+              className="bg-Secondary2_color text-white px-6 py-2 rounded hover:bg-opacity-90 transition-colors"
+            >
+              Clear Search
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-6 md:gap-x-6 md:gap-y-8">

@@ -135,7 +135,7 @@ const FlashPart = () => {
           <div className="flex justify-center items-center mt-10 md:mt-[60px]">
             <button
               onClick={handleViewAllProduct}
-              className="bg-Secondary2_color hover:bg-opacity-90 active:scale-95 transition-all px-10 md:px-[48px] rounded py-3 md:py-[16px] text-sm md:text-[16px] text-white font-medium font-poppins shadow-md"
+              className="bg-Secondary2_color hover:bg-opacity-90 active:scale-95 transition-all px-10 md:px-[48px] rounded py-3 md:py-[16px] text-sm md:text-[16px] text-white font-medium font-poppins shadow-md cursor-pointer"
             >
               View All Products
             </button>
