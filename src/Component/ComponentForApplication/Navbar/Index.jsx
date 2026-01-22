@@ -57,6 +57,14 @@ export const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Close dropdown menus on route change
+  useEffect(() => {
+    setUserAccount(false);
+    setnavicon(false);
+    setSearchOpen(false);
+    setShowSearchResults(false);
+  }, [location.pathname]);
+
   // Helper to close all overlays
   const handleLinkClick = () => {
     setnavicon(false);
@@ -236,7 +244,7 @@ export const Navbar = () => {
               <div className="relative">
                 <button
                   className={`text-xl md:text-2xl p-1.5 rounded-full transition-all duration-300 ${
-                    userAccount || location.pathname.includes("/account")
+                    userAccount || location.pathname.startsWith("/account")
                       ? "bg-Secondary2_color text-white shadow-md"
                       : "text-black hover:bg-gray-100"
                   }`}
@@ -276,32 +284,33 @@ export const Navbar = () => {
                           path: "/account/reviews",
                           icon: <MdOutlineStarBorder />,
                         },
-                      ].map((link) => (
-                        <NavLink
-                          key={link.path}
-                          to={link.path}
-                          onClick={handleLinkClick}
-                          className={({ isActive }) =>
-                            `flex items-center gap-4 p-3 rounded transition-all duration-200 ${
+                      ].map((link) => {
+                        const isActive = location.pathname === link.path;
+                        return (
+                          <NavLink
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setUserAccount(false)}
+                            className={`flex items-center gap-4 p-3 rounded transition-all duration-200 ${
                               isActive
                                 ? "bg-Secondary2_color text-white"
                                 : "hover:bg-white/10 text-gray-200"
-                            }`
-                          }
-                        >
-                          <span className="text-[22px]">{link.icon}</span>
-                          <span className="text-[14px] font-poppins font-medium">
-                            {link.name}
-                          </span>
-                        </NavLink>
-                      ))}
+                            }`}
+                          >
+                            <span className="text-[22px]">{link.icon}</span>
+                            <span className="text-[14px] font-poppins font-medium">
+                              {link.name}
+                            </span>
+                          </NavLink>
+                        );
+                      })}
 
                       {/* Logout Button */}
                       <button
                         className="flex items-center gap-4 p-3 mt-1 rounded text-gray-200 hover:bg-red-500/20 hover:text-red-400 transition-all duration-200 w-full text-left"
                         onClick={() => {
                           console.log("Logged Out");
-                          handleLinkClick();
+                          setUserAccount(false);
                         }}
                       >
                         <span className="text-[22px]">
