@@ -12,6 +12,11 @@ import SignUp from "./Pages/AuthenticationPage/SignUp";
 import Login from "./Pages/AuthenticationPage/Login";
 import Account from "./Pages/Account";
 import MyProfile from "./Component/AccountPageComponent/MyProfile";
+import MyCancellations from "./Component/AccountPageComponent/MyCancellations";
+import MyReviews from "./Component/AccountPageComponent/MyReviews";
+import MyReturns from "./Component/AccountPageComponent/MyReturns";
+import AddressBook from "./Component/AccountPageComponent/AddressBook";
+import MyPaymentOptions from "./Component/AccountPageComponent/MyPaymentOptions";
 import CheckOut from "./Pages/CheckOut";
 import BreadCrumb from "./Component/CommonComponent/BreadCrumb";
 import ProductPage from "./Pages/ProductPage";
@@ -36,8 +41,13 @@ const App = () => {
 
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/account/profile" element={<Account />}>
-              <Route path="/account/profile" element={<MyProfile />} />
+            <Route path="/account" element={<Account />}>
+              <Route path="profile" element={<MyProfile />} />
+              <Route path="cancellations" element={<MyCancellations />} />
+              <Route path="reviews" element={<MyReviews />} />
+              <Route path="returns" element={<MyReturns />} />
+              <Route path="address-book" element={<AddressBook />} />
+              <Route path="payment-options" element={<MyPaymentOptions />} />
             </Route>
             <Route
               path="/account/profile/product/viewcart/checkout"

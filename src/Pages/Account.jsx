@@ -14,8 +14,8 @@ const Account = () => {
                 isPending
                   ? "text-black"
                   : isActive
-                  ? " text-red-600"
-                  : "text-text1_color font-poppins font-normal text-[14px]"
+                    ? " text-red-600"
+                    : "text-text1_color font-poppins font-normal text-[14px]"
               }
             >
               Home
@@ -27,8 +27,8 @@ const Account = () => {
                 isPending
                   ? "text-black font-poppins font-normal text-[14px]"
                   : isActive
-                  ? "text-black"
-                  : "text-text1_color font-poppins font-normal text-[14px]"
+                    ? "text-black"
+                    : "text-text1_color font-poppins font-normal text-[14px]"
               }
             >
               Account
@@ -60,18 +60,36 @@ const Account = () => {
                     isPending
                       ? "text-black "
                       : isActive
-                      ? " text-red-600 text-[16px] font-poppins font-normal"
-                      : "text-black text-[16px] font-poppins font-normal"
+                        ? " text-red-600 text-[16px] font-poppins font-normal"
+                        : "text-black text-[16px] font-poppins font-normal"
                   }
                 >
                   My Profile
                 </NavLink>
-                <h1 className="text-[16px] font-poppins font-normal">
+                <NavLink
+                  to={"/account/address-book"}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "text-black "
+                      : isActive
+                        ? " text-red-600 text-[16px] font-poppins font-normal"
+                        : "text-black text-[16px] font-poppins font-normal"
+                  }
+                >
                   Address Book
-                </h1>
-                <h1 className="text-[16px] font-poppins font-normal">
+                </NavLink>
+                <NavLink
+                  to={"/account/payment-options"}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "text-black "
+                      : isActive
+                        ? " text-red-600 text-[16px] font-poppins font-normal"
+                        : "text-black text-[16px] font-poppins font-normal"
+                  }
+                >
                   My Payment Options
-                </h1>
+                </NavLink>
               </div>
             </div>
 
@@ -82,20 +100,41 @@ const Account = () => {
               </h1>
               <div className="mt-4 pl-[35px] flex flex-col gap-2">
                 <NavLink
-                  to={"/order"}
+                  to={"/account/returns"}
                   className={({ isActive, isPending }) =>
                     isPending
                       ? "text-black "
                       : isActive
-                      ? " text-red-600 text-[16px] font-poppins font-normal"
-                      : "text-black text-[16px] font-poppins font-normal"
+                        ? " text-red-600 text-[16px] font-poppins font-normal"
+                        : "text-black text-[16px] font-poppins font-normal"
                   }
                 >
                   My Returns
                 </NavLink>
-                <h1 className="text-[16px] font-poppins font-normal">
+                <NavLink
+                  to={"/account/cancellations"}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "text-black "
+                      : isActive
+                        ? " text-red-600 text-[16px] font-poppins font-normal"
+                        : "text-black text-[16px] font-poppins font-normal"
+                  }
+                >
                   My Cancellations
-                </h1>
+                </NavLink>
+                <NavLink
+                  to={"/account/reviews"}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "text-black "
+                      : isActive
+                        ? " text-red-600 text-[16px] font-poppins font-normal"
+                        : "text-black text-[16px] font-poppins font-normal"
+                  }
+                >
+                  My Reviews
+                </NavLink>
               </div>
             </div>
             {/* next part */}
