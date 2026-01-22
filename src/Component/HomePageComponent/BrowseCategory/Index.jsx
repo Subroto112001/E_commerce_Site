@@ -1,102 +1,101 @@
 import React from "react";
 import Heading from "../../CommonComponent/Heading";
-
 import Slider from "react-slick";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
-
 import { CiCamera, CiHeadphones, CiMobile4, CiMonitor } from "react-icons/ci";
 import { BsSmartwatch } from "react-icons/bs";
 import { PiGameControllerThin } from "react-icons/pi";
-import { NavLink } from "react-router-dom";
-import { useProductCategoryListQuery } from "../../../Features/AllSlice/Api/ProductApi";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCategory } from "../../../Features/AllSlice/filterSlice";
 
 const BrowseCategroy = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const { data, error, isLoading } = useProductCategoryListQuery();
+  // Navigation Arrows - Optimized for mobile touch and desktop alignment
+  const NextArrow = ({ onClick }) => (
+    <div
+      className="absolute top-[-60px] right-2 md:right-0 z-10 cursor-pointer bg-[#F5F5F5] hover:bg-Secondary2_color hover:text-white text-black w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 shadow-sm"
+      onClick={onClick}
+    >
+      <MdOutlineNavigateNext size={24} />
+    </div>
+  );
 
-  const NextArrow = (props) => {
+  const PrevArrow = ({ onClick }) => (
+    <div
+      className="absolute top-[-60px] right-[55px] md:right-[60px] z-10 cursor-pointer bg-[#F5F5F5] hover:bg-Secondary2_color hover:text-white text-black w-[40px] h-[40px] flex items-center justify-center rounded-full transition-all duration-300 shadow-sm"
+      onClick={onClick}
+    >
+      <GrFormPrevious size={24} />
+    </div>
+  );
 
-    const { onClick } = props;
-    return (
-      <div
-        className="absolute bottom-[-50px] md:top-[-60px] right-[45%]  md:right-0 z-10 cursor-pointer bg-black text-white p-2 rounded-full"
-        onClick={onClick}
-      >
-        <MdOutlineNavigateNext size={24} />
-      </div>
-    );
-  };
-
-  const PrevArrow = (props) => {
-    const { onClick } = props;
-    return (
-      <div
-        className="absolute bottom-[-50px] md:top-[-60px] right-[55%] md:right-[60px] z-10 cursor-pointer bg-black text-white p-2 rounded-full"
-        onClick={onClick}
-      >
-        <GrFormPrevious size={24} />
-      </div>
-    );
-  };
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: window.innerWidth < 640 ? 2 : 6,
+    slidesToShow: 6,
     slidesToScroll: 1,
     arrows: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 4 },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          swipeToSlide: true,
+        },
+      },
+    ],
   };
 
-   const FlashSalesItem = [
-      {
-        id: 1,
-        name: "Phones",
-        icon: <CiMobile4 />,
-        path: "/phones",
-      },
-      {
-        id: 2,
-        name: "Computers",
-        icon: <CiMonitor />,
-        path: "/computers",
-      },
-      {
-        id: 3,
-        name: "SmartWatch",
-        icon: <BsSmartwatch />,
-        path: "/smartwatch",
-      },
-      {
-        id: 4,
-        name: "Camera",
-        icon: <CiCamera />,
-        path: "/",
-      },
-  
-      {
-        id: 5,
-        name: "HeadPhones",
-        icon: <CiHeadphones />,
-        path: "/headphones",
-      },
-      {
-        id: 6,
-        name: "Gaming",
-        icon: <PiGameControllerThin />,
-        path: "/gaming",
-      },
+  const FlashSalesItem = [
+    { id: 1, name: "Phones", icon: <CiMobile4 />, category: "smartphones" },
+    { id: 2, name: "Computers", icon: <CiMonitor />, category: "laptops" },
+    {
+      id: 3,
+      name: "SmartWatch",
+      icon: <BsSmartwatch />,
+      category: "mens-watches",
+    },
+    {
+      id: 4,
+      name: "Camera",
+      icon: <CiCamera />,
+      category: "mobile-accessories",
+    },
+    { id: 5, name: "HeadPhones", icon: <CiHeadphones />, category: "tablets" },
+    {
+      id: 6,
+      name: "Gaming",
+      icon: <PiGameControllerThin />,
+      category: "sports-accessories",
+    },
   ];
-  
-  
+
+  const handleCategoryClick = (category) => {
+    dispatch(setCategory(category));
+    navigate(`/product?category=${category}`);
+  };
+
   return (
-    <div className="container mx-auto">
-      <div className="mt-[80px] flex gap-4 ">
+    <div className="container mx-auto px-4 md:px-0 font-noto-serif">
+      <div className="mt-[60px] md:mt-[80px] animate-fadeInUp">
         <Heading
           HeadingTitle={"Categories"}
           SeconderyHeading={"Browse By Category"}
@@ -104,35 +103,27 @@ const BrowseCategroy = () => {
           isButton={false}
         />
       </div>
-      <div className="mt-[40px]  ">
-        <div className="relative border-b border-gray-400  pb-[70px]">
-          <div className="slider-container ">
+
+      <div className="mt-8 md:mt-[40px]">
+        <div className="relative border-b border-gray-200 pb-[60px] md:pb-[70px]">
+          <div className="slider-container">
             <Slider {...settings}>
               {FlashSalesItem.map((item) => (
-                <NavLink to={item.path} className="text-black">
-                  {({ isActive, isPending }) => (
-                    <div
-                      className={`w-[170px] h-[145px] border border-[rgba(0,0,0,0.3)] flex justify-center items-center relative group ${
-                        isActive ? "bg-red-500" : ""
-                      }`}
-                    >
-                      <span
-                        className={`text-4xl ${isActive ? "text-white" : ""}`}
-                      >
+                <div key={item.id} className="px-2">
+                  <div
+                    onClick={() => handleCategoryClick(item.category)}
+                    className="block group cursor-pointer"
+                  >
+                    <div className="w-full aspect-square border transition-all duration-300 rounded-sm flex flex-col justify-center items-center gap-4 bg-transparent border-gray-300 text-black hover:bg-Secondary2_color hover:border-Secondary2_color hover:text-white">
+                      <span className="text-4xl md:text-5xl transition-transform duration-300 group-hover:scale-110">
                         {item.icon}
                       </span>
-                      <div className="absolute bottom-[24px]">
-                        <h3
-                          className={`font-poppins text-[16px] font-medium ${
-                            isActive ? "text-white" : ""
-                          }`}
-                        >
-                          {item.name}
-                        </h3>
-                      </div>
+                      <h3 className="font-poppins text-xs md:text-base font-medium">
+                        {item.name}
+                      </h3>
                     </div>
-                  )}
-                </NavLink>
+                  </div>
+                </div>
               ))}
             </Slider>
           </div>

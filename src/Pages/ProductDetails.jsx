@@ -3,47 +3,64 @@ import BreadCrumb from "../Component/CommonComponent/BreadCrumb";
 import Star from "../Component/CommonComponent/Star";
 import { calculateDiscountPrice } from "../Utils/Calculation";
 import { FiMinus, FiPlus } from "react-icons/fi";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BsArrowRepeat } from "react-icons/bs";
 import Heading from "../Component/CommonComponent/Heading";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { sizeOfProduct } from "../Helpers/ItemProvider";
 import ItemComponent from "../Component/CommonComponent/ItemComponent";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../Features/AllSlice/cartSlice";
+import {
+  toggleWishlist,
+  selectWishlistItems,
+} from "../Features/AllSlice/wishlistSlice";
+import { useGetSingleProductQuery } from "../Features/AllSlice/Api/ProductApi";
+
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y } from "swiper/modules";
+import { A11y, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import { useCategoryByProduct } from "../ContextApi/CategoryProduct";
 import ProductLoading from "../Component/ProductDetailsComponent/ProductLoading";
 
-
 const ProductDetails = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const { state } = useLocation();
-  const product = state?.product;
+  const productFromState = state?.product;
+
+  // Fetch product from API if not in state (e.g., direct URL access)
+  const { data: fetchedProduct, isLoading: isFetchingProduct } =
+    useGetSingleProductQuery(id, {
+      skip: !!productFromState, // Skip API call if product is in state
+    });
+
+  const product = productFromState || fetchedProduct;
+  const wishlistItems = useSelector(selectWishlistItems);
+  const isInWishlist = wishlistItems.some((item) => item.id === product?.id);
 
   const [image, setImage] = useState(product?.images?.[0]);
   const [count, setCount] = useState(1);
-
   const [productHolder, setProductHolder] = useState({});
   const [relatedProduct, setRelatedProduct] = useState({});
-  
+
   useEffect(() => {
     if (product) {
       setProductHolder(product);
       setImage(product?.images?.[0]);
-       setCount(1);
+      setCount(1);
+      window.scrollTo(0, 0); // Scroll to top on product change
     }
   }, [product]);
 
-  const { details, error, isLoading } = useCategoryByProduct(
-    productHolder.category
-  );
+  const { details, isLoading } = useCategoryByProduct(productHolder.category);
 
   useEffect(() => {
     if (details) {
@@ -51,174 +68,191 @@ const ProductDetails = () => {
     }
   }, [details]);
 
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart({ ...product, quantity: count }));
+    }
+  };
+
+  const handleToggleWishlist = () => {
+    if (product) {
+      dispatch(toggleWishlist(product));
+    }
+  };
+
+  if (isFetchingProduct) {
+    return (
+      <div className="container mx-auto px-4 font-noto-serif">
+        <div className="mt-4">
+          <BreadCrumb />
+        </div>
+        <ProductLoading />
+      </div>
+    );
+  }
+
   if (!product) {
     return (
-      <h2 className="text-center mt-10 text-xl font-semibold">
+      <h2 className="text-center mt-10 text-xl font-semibold font-noto-serif">
         No product data found
       </h2>
     );
   }
 
   return (
-    <div className="container">
+    <div className="container mx-auto px-4 font-noto-serif">
       {/* Breadcrumb */}
       <div className="mt-4">
         <BreadCrumb />
       </div>
+
       {isLoading ? (
         <ProductLoading />
       ) : (
-        <div className="flex flex-row justify-between py-10">
+        <div className="flex flex-col lg:flex-row justify-between py-6 lg:py-10 gap-10">
           {/* Left side (Images) */}
-          <div className="w-[55%] flex items-start gap-[30px]">
-            {/* Small images */}
-            <div className="flex flex-col gap-[16px]">
+          <div className="w-full lg:w-[55%] flex flex-col-reverse md:flex-row items-start gap-4 lg:gap-[30px]">
+            {/* Small images - Thumbnails */}
+            <div className="flex flex-row md:flex-col gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
               {product.images?.map((img, i) => (
                 <div
                   key={i}
-                  className="px-[12px] py-[8px] bg-secondary_color hover:bg-gray-200 transition-all duration-300 rounded-[4px] cursor-pointer"
+                  className={`flex-shrink-0 p-2 bg-secondary_color hover:bg-gray-200 transition-all rounded-[4px] cursor-pointer border ${
+                    image === img ? "border-red-500" : "border-transparent"
+                  }`}
                   onClick={() => setImage(img)}
                 >
                   <img
                     src={img}
                     alt={product.title}
-                    className="w-[90px] h-[90px] object-contain"
+                    className="w-[60px] h-[60px] lg:w-[90px] lg:h-[90px] object-contain"
                   />
                 </div>
               ))}
             </div>
 
-            {/* Main image */}
-            <div className="pt-[154px] pb-[131px] px-[27px] bg-secondary_color rounded-[4px] group overflow-hidden cursor-pointer">
+            {/* Main image Container */}
+            <div className="w-full bg-secondary_color rounded-[4px] flex items-center justify-center p-6 lg:p-20 overflow-hidden relative min-h-[300px] lg:min-h-[500px]">
               <img
                 src={image}
                 alt={product.title}
-                className="w-[416px] h-[343px] object-contain transition-transform duration-500 ease-in-out group-hover:scale-110"
+                className="max-w-full h-auto max-h-[400px] object-contain transition-transform duration-500 ease-in-out hover:scale-105"
               />
             </div>
           </div>
 
           {/* Right side (Details) */}
-          <div className="w-[40%]">
+          <div className="w-full lg:w-[40%]">
             <div className="flex flex-col gap-y-6">
               {/* Title + Rating */}
-              <div className="flex flex-col gap-4 pb-6 border-b border-text2-color">
-                <h3 className="font-semibold text-2xl text-text2-color">
+              <div className="flex flex-col gap-4 pb-6 border-b border-gray-300">
+                <h3 className="font-semibold text-2xl lg:text-3xl text-black">
                   {product.title}
                 </h3>
-                <div className="flex flex-row items-center gap-2.5">
+                <div className="flex flex-wrap items-center gap-2.5">
                   <Star rating={product.rating} />
-                  <span className="text-gray-600 text-[14px] font-poppins font-normal">
-                    ({product.rating})
+                  <span className="text-gray-400 text-[14px] font-poppins">
+                    ({product.rating} Reviews)
                   </span>
-                  <div className="h-[14px] border border-gray-600"></div>
+                  <div className="h-[14px] border border-gray-300 mx-1"></div>
                   <div
-                    className={`${
-                      product.stock > 0 ? "text-Button1_color" : "text-red-500"
-                    } text-[14px] font-normal font-poppins`}
+                    className={`${product.stock > 0 ? "text-green-500" : "text-red-500"} text-[14px] font-medium font-poppins`}
                   >
                     {product.stock > 0 ? "In Stock" : "Out Of Stock"}
                   </div>
                 </div>
-                <p className="font-normal text-2xl text-text2-color">
+                <p className="font-medium text-2xl text-black">
                   $
                   {calculateDiscountPrice(
                     product.price,
                     product.discountPercentage,
-                    2
+                    2,
                   )}
                 </p>
-                <p className="mt-2">{product.description}</p>
+                <p className="text-sm leading-6 text-gray-700">
+                  {product.description}
+                </p>
               </div>
 
               {/* Color & Size */}
               <div className="flex flex-col gap-y-6">
-                {/* Colors (dummy, static) */}
-                <div className="flex flex-row gap-x-6 items-center">
-                  <h3 className="font-inter font-normal text-xl text-black">
-                    Colors:
-                  </h3>
-                  <div className="flex gap-2.5 flex-row items-center cursor-pointer">
-                    <div className="w-[24px] h-[24px] bg-blue-500 rounded-full border-2 border-white"></div>
-                    <div className="w-[24px] h-[24px] bg-red-400 rounded-full border-2 border-white"></div>
+                <div className="flex items-center gap-x-6">
+                  <h3 className="font-inter text-xl">Colors:</h3>
+                  <div className="flex gap-2.5 items-center">
+                    <button className="w-5 h-5 bg-blue-500 rounded-full ring-offset-2 focus:ring-2 focus:ring-blue-500"></button>
+                    <button className="w-5 h-5 bg-red-400 rounded-full ring-offset-2 focus:ring-2 focus:ring-red-400"></button>
                   </div>
                 </div>
 
-                {/* Sizes */}
-                <div className="flex flex-row gap-x-6 items-center">
-                  <h3 className="font-normal font-inter text-xl text-black">
-                    Size:
-                  </h3>
-                  <div className="flex flex-row items-center gap-4">
+                <div className="flex items-center gap-x-6">
+                  <h3 className="font-inter text-xl">Size:</h3>
+                  <div className="flex flex-wrap items-center gap-2 md:gap-4">
                     {sizeOfProduct.map((item) => (
-                      <h3
+                      <button
                         key={item.id}
-                        className={`font-medium ${item.CSS} font-poppins text-[14px] hover:bg-gray-300 transition-all duration-300 cursor-pointer text-black border border-black border-opacity-50 rounded`}
+                        className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-sm font-medium border border-gray-400 rounded hover:bg-red-500 hover:text-white hover:border-red-500 transition-all"
                       >
                         {item.size}
-                      </h3>
+                      </button>
                     ))}
                   </div>
                 </div>
 
-                {/* Quantity */}
-                <div className="flex flex-row gap-4 items-center">
-                  <div className="flex items-center border rounded">
+                {/* Quantity & Actions */}
+                <div className="flex flex-wrap gap-4 items-center">
+                  <div className="flex items-center border border-gray-400 rounded overflow-hidden">
                     <button
                       onClick={() => setCount(count > 1 ? count - 1 : 1)}
-                      className="text-2xl px-3 py-3 border-r font-bold hover:bg-gray-200 cursor-pointer"
+                      className="p-3 hover:bg-red-500 hover:text-white transition-colors border-r border-gray-400"
                     >
                       <FiMinus />
                     </button>
-                    <div className="text-center px-[34px] py-2 text-[20px] font-medium font-poppins">
-                      {count}
-                    </div>
+                    <div className="px-8 font-semibold text-lg">{count}</div>
                     <button
                       onClick={() => setCount(count + 1)}
-                      className="text-2xl px-3 py-3 border-l font-bold hover:bg-gray-200 cursor-pointer"
+                      className="p-3 hover:bg-red-500 hover:text-white transition-colors border-l border-gray-400"
                     >
                       <FiPlus />
                     </button>
                   </div>
-                  <button className="font-medium font-poppins text-[16px] text-gray-50 px-12 py-3 rounded bg-red-500 hover:bg-red-400 cursor-pointer">
-                    Buy Now
+                  <button
+                    onClick={handleAddToCart}
+                    className="flex-1 md:flex-none px-12 py-3 bg-red-500 text-white font-medium rounded hover:bg-red-600 transition-all"
+                  >
+                    Add To Cart
                   </button>
-                  <button className="px-3.5 py-3.5 rounded border text-[17px] cursor-pointer hover:bg-red-500 hover:text-white transition-all duration-300">
-                    <FaRegHeart />
+                  <button
+                    onClick={handleToggleWishlist}
+                    className={`p-3 border border-gray-400 rounded hover:bg-red-500 hover:text-white transition-all ${isInWishlist ? "bg-red-500 text-white" : ""}`}
+                  >
+                    {isInWishlist ? (
+                      <FaHeart size={20} />
+                    ) : (
+                      <FaRegHeart size={20} />
+                    )}
                   </button>
                 </div>
               </div>
 
               {/* Delivery / Return Info */}
-              <div className="flex flex-col border rounded w-[420px]">
-                <div className="py-[20px] px-[16px] border-b cursor-pointer hover:bg-gray-100">
-                  <div className="flex flex-row gap-4">
-                    <span className="text-[45px]">
-                      <TbTruckDelivery />
-                    </span>
-                    <div className="flex flex-col gap-2">
-                      <h3 className="font-semibold text-[16px]">
-                        Free Delivery
-                      </h3>
-                      <h3 className="font-semibold text-[12px]">
-                        Enter your postal code for Delivery Availability
-                      </h3>
-                    </div>
+              <div className="flex flex-col border border-gray-400 rounded w-full">
+                <div className="p-4 border-b flex items-center gap-4 hover:bg-gray-50 transition-colors">
+                  <TbTruckDelivery className="text-4xl" />
+                  <div>
+                    <h3 className="font-medium">Free Delivery</h3>
+                    <p className="text-xs underline cursor-pointer">
+                      Enter your postal code for Availability
+                    </p>
                   </div>
                 </div>
-                <div className="py-[20px] px-[16px] cursor-pointer hover:bg-gray-100">
-                  <div className="flex flex-row gap-4">
-                    <span className="text-[45px]">
-                      <BsArrowRepeat />
-                    </span>
-                    <div className="flex flex-col gap-2">
-                      <h3 className="font-semibold text-[16px]">
-                        Return Delivery
-                      </h3>
-                      <h3 className="font-semibold text-[12px]">
-                        Free 30 Days Delivery Returns. Details
-                      </h3>
-                    </div>
+                <div className="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors">
+                  <BsArrowRepeat className="text-4xl" />
+                  <div>
+                    <h3 className="font-medium">Return Delivery</h3>
+                    <p className="text-xs">
+                      Free 30 Days Delivery Returns.{" "}
+                      <span className="underline cursor-pointer">Details</span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -227,47 +261,45 @@ const ProductDetails = () => {
         </div>
       )}
 
-      {/* Related Products (dummy for now) */}
-      <div className="py-[140px]">
-        <Heading
-          HeadingTitle={"Related Item"}
-          SeconderyHeading={false}
-          showtimer={false}
-          isButton={false}
-          isSeccendorytitle={false}
-        />
-        <div>
+      {/* Related Products */}
+      <div className="py-12 lg:py-20">
+        <Heading HeadingTitle={"Related Item"} />
+        <div className="mt-8">
           <Swiper
-            // install Swiper modules
-            modules={[A11y]}
-            spaceBetween={50}
-            slidesPerView={4}
+            modules={[A11y, Navigation, Pagination]}
+            spaceBetween={20}
+            slidesPerView={1}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+            }}
+            pagination={{ clickable: true }}
+            className="pb-12"
           >
             {relatedProduct?.products?.map((item, index) => (
-              <div>
-                <SwiperSlide key={index}>
-                  <ItemComponent
-                    itemName={item.title}
-                    itemPicture={item.images[0]}
-                    itemDiscount={item.discountPercentage}
-                    itemPrice={calculateDiscountPrice(
-                      item.price,
-                      item.discountPercentage,
-                      2
-                    )}
-                    itemPrevpRICE={item.price}
-                    itemRating={item.rating}
-                    IsDiscount={true}
-                    isAddcrat={true}
-                    onClick={() =>
-                      navigate(`/product-details/${item.id}`, {
-                        state: { product: item },
-                        replace: true,
-                      })
-                    }
-                  />
-                </SwiperSlide>
-              </div>
+              <SwiperSlide key={index}>
+                <ItemComponent
+                  itemName={item.title}
+                  itemPicture={item.images[0]}
+                  itemDiscount={item.discountPercentage}
+                  itemPrice={calculateDiscountPrice(
+                    item.price,
+                    item.discountPercentage,
+                    2,
+                  )}
+                  itemPrevpRICE={item.price}
+                  itemRating={item.rating}
+                  IsDiscount={true}
+                  isAddcrat={true}
+                  onClick={() =>
+                    navigate(`/product-details/${item.id}`, {
+                      state: { product: item },
+                      replace: true,
+                    })
+                  }
+                />
+              </SwiperSlide>
             ))}
           </Swiper>
         </div>

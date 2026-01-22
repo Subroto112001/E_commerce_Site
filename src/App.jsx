@@ -20,7 +20,6 @@ import { ProductProvider } from "./ContextApi/Contextapi";
 import NotFound from "./Pages/404Page";
 
 const App = () => {
-  
   return (
     <BrowserRouter>
       <ProductProvider>
@@ -34,7 +33,6 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/product" element={<ProductPage />} />
             <Route path="/product-details/:id" element={<ProductDetails />} />
-            <Route path="/error" element={<NotFound />} />
 
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
@@ -45,6 +43,8 @@ const App = () => {
               path="/account/profile/product/viewcart/checkout"
               element={<CheckOut />}
             />
+            {/* Catch-all 404 route */}
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </ProductProvider>

@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterSlice from "./Slice";
-import {useGetProductQuery} from './AllSlice/Api/ProductApi'
-
-
 import { ProductApi } from "./AllSlice/Api/ProductApi";
+import cartReducer from "./AllSlice/cartSlice";
+import wishlistReducer from "./AllSlice/wishlistSlice";
+import filterReducer from "./AllSlice/filterSlice";
 
 export const store = configureStore({
   reducer: {
-    count: counterSlice,
+    cart: cartReducer,
+    wishlist: wishlistReducer,
+    filter: filterReducer,
     [ProductApi.reducerPath]: ProductApi.reducer,
   },
-
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(ProductApi.middleware),
 });

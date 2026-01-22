@@ -1,20 +1,35 @@
 import React, { useState } from "react";
-import { FaApple } from "react-icons/fa";
+import { FaApple, FaChevronRight } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { TbMathGreater } from "react-icons/tb";
-import { NavLink } from "react-router-dom";
-import IPhone from "../../../assets/Iphone.png"
-
+import { HiMenuAlt2 } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
+import { useDispatch } from "react-redux";
+import { setCategory } from "../../../Features/AllSlice/filterSlice";
+import {
+  useGetProductQuery,
+  useProductCategoryListQuery,
+} from "../../../Features/AllSlice/Api/ProductApi";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Banner = () => {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  // Fetch categories and featured products from DummyJSON
+  const { data: categoriesData } = useProductCategoryListQuery();
+  const { data: productsData } = useGetProductQuery();
 
-  const [category, setCategory] = useState(true);
-  
+  // Get featured products for banner slides (top rated ones)
+  const featuredProducts =
+    productsData?.products
+      ?.slice()
+      ?.sort((a, b) => b.rating - a.rating)
+      ?.slice(0, 3) || [];
+
   const settings = {
     dots: true,
     infinite: true,
@@ -22,194 +37,186 @@ const Banner = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    autoplay: true,
+    autoplaySpeed: 4000,
     appendDots: (dots) => (
-      <div
-        style={{ display: "flex", justifyContent: "center",  position : "relative"}}
-      >
-        <ul style={{ display: "flex", gap: "8px", position: "absolute", bottom: "40px" }}> {dots} </ul>
+      <div className="absolute bottom-5 w-full flex justify-center">
+        <ul className="flex gap-2 m-0 banner-dots"> {dots} </ul>
       </div>
     ),
     customPaging: (i) => (
-      <div className="w-3 h-3 rounded-full border-2 border-black bg-gray-300 slick-dot"></div>
+      <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border border-gray-400 bg-transparent transition-all duration-300"></div>
     ),
   };
-  
-  
-  
-  const banneritem = [
-    {
-      id: 1,
-      name: "Woman’s Fashion",
-      subCategory: true,
-    },
-    {
-      id: 2,
-      name: "Men’s Fashion",
-      subCategory: true,
-    },
-    {
-      id: 3,
-      name: "Electronics",
-      subCategory: true,
-    },
-    {
-      id: 4,
-      name: "Home & Lifestyle",
-      subCategory: true,
-    },
-    {
-      id: 5,
-      name: "Medicine",
-      subCategory: true,
-    },
-    {
-      id: 6,
-      name: "Sports & Outdoor",
-      subCategory: true,
-    },
-    {
-      id: 7,
-      name: "Baby’s & Toys",
-      subCategory: true,
-    },
-    {
-      id: 8,
-      name: "Groceries & Pets",
-      subCategory: true,
-    },
-    {
-      id: 9,
-      name: "Health & Beauty",
-      subCategory: true,
-    },
-  ];
 
-  const bannerPictureItem = [
-    {
-      id: 1,
-      picture: IPhone,
-    },
-    {
-      id: 2,
-      picture: "Item2",
-    },
-    {
-      id: 3,
-      picture: "IPhone3",
-    },
-    {
-      id: 4,
-      picture: "IPhone4",
-    },
-    {
-      id: 5,
-      picture: "IPhone5",
-    },
-    {
-      id: 6,
-      picture: "IPhone6",
-    },
-    
-  ];
+  // Map DummyJSON categories to display names
+  const categoryDisplayNames = {
+    smartphones: "Smartphones",
+    laptops: "Laptops & Computers",
+    fragrances: "Fragrances",
+    skincare: "Skincare",
+    groceries: "Groceries",
+    "home-decoration": "Home & Lifestyle",
+    furniture: "Furniture",
+    tops: "Women's Fashion",
+    "womens-dresses": "Women's Dresses",
+    "womens-shoes": "Women's Shoes",
+    "mens-shirts": "Men's Fashion",
+    "mens-shoes": "Men's Shoes",
+    "mens-watches": "Men's Watches",
+    "womens-watches": "Women's Watches",
+    "womens-bags": "Women's Bags",
+    "womens-jewellery": "Jewellery",
+    sunglasses: "Sunglasses",
+    automotive: "Automotive",
+    motorcycle: "Motorcycle",
+    lighting: "Lighting",
+  };
+
+  // Take first 9 categories for sidebar
+  const displayCategories = categoriesData?.slice(0, 9) || [];
+
+  const handleCategoryClick = (category) => {
+    dispatch(setCategory(category));
+    navigate(`/product?category=${category}`);
+    setIsCategoryOpen(false);
+  };
+
+  const handleShopNow = (product) => {
+    if (product) {
+      navigate(`/product-details/${product.id}`, { state: { product } });
+    } else {
+      navigate("/product");
+    }
+  };
 
   return (
-    <div className="container">
-      <div className="flex flex-col md:flex-row mt-5">
+    <div className="container mx-auto px-4 md:px-0 font-noto-serif">
+      <div className="flex flex-col md:flex-row">
+        {/* Mobile Category Toggle */}
         <div
-          className={` ${
-            category ? "flex" : "hidden"
-          } md:hidden flex-row gap-2 items-center text-black font-semibold text-xl`}
-          onClick={() => setCategory(!category)}
+          className="md:hidden flex items-center gap-2 py-4 text-black font-semibold cursor-pointer border-b border-gray-100 mb-2"
+          onClick={() => setIsCategoryOpen(!isCategoryOpen)}
         >
-          <h3>Category</h3>
-          <span>
-            <TbMathGreater />
-          </span>
+          <HiMenuAlt2 size={24} />
+          <span>All Categories</span>
         </div>
+
+        {/* Sidebar Categories */}
         <div
           className={`${
-            category ? "hidden" : "block"
-          }  md:block left w-[50%] md:w-[20%] border-r-[1px] border-gray-500`}
+            isCategoryOpen
+              ? "max-h-[500px] opacity-100"
+              : "max-h-0 opacity-0 md:max-h-none md:opacity-100"
+          } overflow-hidden transition-all duration-500 md:w-[25%] lg:w-[20%] md:border-r border-gray-200 md:pr-4 z-20`}
         >
-          <div>
-            <h3
-              className="text-right md:hidden text-2xl mr-4 text-red-500 font-semibold "
-              onClick={() => setCategory(!category)}
-            >
-              X
-            </h3>
-            <ul className="flex flex-col gap-[16px] pt-3 md:pt-10 pr-[16px] ">
-              {banneritem.map((item) => {
-                return (
-                  <li
-                    key={item.id}
-                    className="flex items-center justify-between text-[16px] p-1 font-normal font-poppins text-black_color transition-all hover:bg-gray-200 hover:translate-1  cursor-pointer"
-                  >
-                    {item.name}
-                    <span>
-                      <TbMathGreater />
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          <ul className="flex flex-col gap-2 md:gap-4 pt-2 md:pt-10 pb-5 md:pb-0">
+            {displayCategories.map((category, index) => (
+              <li
+                key={index}
+                onClick={() => handleCategoryClick(category)}
+                className="flex items-center justify-between text-[14px] md:text-[16px] py-1 font-poppins text-black hover:text-Secondary2_color transition-colors cursor-pointer group capitalize"
+              >
+                {categoryDisplayNames[category] || category.replace("-", " ")}
+                <FaChevronRight className="text-[10px] md:opacity-0 group-hover:opacity-100 transition-opacity" />
+              </li>
+            ))}
+          </ul>
         </div>
-        <div
-          className={`${
-            category ? "block" : "hidden"
-          } right w-[100%] md:w-[80%] pt-5 md:pt-[40px] md:pl-[45px] `}
-        >
-          <div className="slider-container">
+
+        {/* Main Banner Slider */}
+        <div className="w-full md:w-[75%] lg:w-[80%] md:pt-10 md:pl-10">
+          <div className="bg-black relative overflow-hidden rounded-sm">
             <Slider {...settings}>
-              {bannerPictureItem.map((item) => (
-                <div key={item.id}>
-                  <div className="flex items-center flex-row bg-black text-white">
-                    <div className="left flex flex-col gap-[20px] pt-6 md:pt-[58px] pl-4 md:pl-[64px] pb-[47px]">
-                      <div className="flex flex-row gap-[24px]  items-center">
-                        <span className="text-[32px]">
-                          <FaApple />
-                        </span>
-                        <h3 className="text-[14px] md:text-[16px] font-normal font-poppins">
-                          iPhone 14 Series
-                        </h3>
+              {featuredProducts.length > 0 ? (
+                featuredProducts.map((product) => (
+                  <div key={product.id} className="outline-none">
+                    <div className="flex flex-col sm:flex-row items-center justify-between px-6 md:px-16 pt-8 md:pt-14 pb-12 md:pb-14 gap-8">
+                      {/* Image Left */}
+                      <div className="order-1 w-full sm:w-1/2 flex justify-center">
+                        <img
+                          src={product.thumbnail}
+                          alt={product.title}
+                          className="w-[180px] md:w-[300px] lg:w-[350px] object-contain transform transition-transform hover:scale-105 duration-700 bg-white/10 rounded-lg p-4"
+                        />
                       </div>
 
-                      <div>
-                        <h3 className="text-[28px] md:text-[48px] font-semibold font-inter w-[170px] md:w-[294px] ">
-                          Up to 10% off Voucher
-                        </h3>
-                      </div>
-                      <div className="">
-                        <NavLink
-                          to={"/shopNow"}
-                          className={
-                            " text-[16px] flex flex-row items-center gap-2 font-medium font-poppins"
-                          }
-                        >
-                          <span className="border-b pb-[4px]">Shop Now</span>
-                          <span>
-                            <FaArrowRightLong />
+                      {/* Content Right */}
+                      <div className="order-2 text-white flex flex-col items-center sm:items-start gap-4 md:gap-5 text-center sm:text-left w-full sm:w-1/2">
+                        <div className="flex items-center gap-3 md:gap-6">
+                          <span className="text-sm px-3 py-1 bg-Secondary2_color rounded-full">
+                            {Math.round(product.discountPercentage)}% OFF
                           </span>
-                        </NavLink>
+                          <h3 className="text-sm md:text-base font-poppins capitalize">
+                            {product.category?.replace("-", " ")}
+                          </h3>
+                        </div>
+                        <h2 className="text-[22px] md:text-[36px] font-semibold leading-tight font-inter">
+                          {product.title}
+                        </h2>
+                        <p className="text-gray-300 text-sm line-clamp-2">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-4">
+                          <span className="text-2xl font-bold text-Secondary2_color">
+                            $
+                            {(
+                              product.price *
+                              (1 - product.discountPercentage / 100)
+                            ).toFixed(2)}
+                          </span>
+                          <span className="text-gray-400 line-through">
+                            ${product.price}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => handleShopNow(product)}
+                          className="flex items-center gap-2 text-sm md:text-base font-medium bg-Secondary2_color px-6 py-3 rounded hover:bg-opacity-90 transition-all"
+                        >
+                          Shop Now <FaArrowRightLong />
+                        </button>
                       </div>
                     </div>
-                    <div className="right">
-                      <picture>
-                        <img
-                          src={item.picture}
-                          alt={item.picture}
-                          className="object-cover w-[300px] md:w-full h-[150px] md:h-full"
-                        />
-                      </picture>
+                  </div>
+                ))
+              ) : (
+                // Fallback static banner
+                <div className="outline-none">
+                  <div className="flex flex-col sm:flex-row items-center justify-between px-6 md:px-16 pt-8 md:pt-14 pb-12 md:pb-14 gap-8">
+                    <div className="order-1 w-full sm:w-1/2 flex justify-center">
+                      <div className="w-[180px] md:w-[300px] h-[180px] md:h-[300px] bg-gray-800 rounded-lg animate-pulse"></div>
+                    </div>
+                    <div className="order-2 text-white flex flex-col items-center sm:items-start gap-4 text-center sm:text-left w-full sm:w-1/2">
+                      <div className="flex items-center gap-3">
+                        <FaApple className="text-3xl md:text-5xl" />
+                        <h3 className="text-sm md:text-base font-poppins">
+                          Loading Products...
+                        </h3>
+                      </div>
+                      <h2 className="text-[26px] md:text-[44px] font-semibold leading-tight font-inter">
+                        Amazing Deals
+                      </h2>
+                      <button
+                        onClick={() => navigate("/product")}
+                        className="flex items-center gap-2 text-sm md:text-base font-medium border-b border-gray-400 hover:border-white pb-1 transition-all"
+                      >
+                        Shop Now <FaArrowRightLong />
+                      </button>
                     </div>
                   </div>
                 </div>
-              ))}
+              )}
             </Slider>
           </div>
         </div>
       </div>
+
+      <style>{`
+        .slick-dots li.slick-active div {
+          background-color: #DB4444 !important;
+          border-color: #DB4444 !important;
+        }
+      `}</style>
     </div>
   );
 };
